@@ -1,6 +1,6 @@
 pihole_server: "overlay_me"
 pihole_password: "overlay_me"
-pihole_skip_verify: true
+pihole_skip_verify: "true"
 
 external-dns:
   extraArgs:
