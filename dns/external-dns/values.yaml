@@ -10,7 +10,7 @@ external-dns:
     - --policy=upsert-only
     - --provider=pihole
 
-  extraEnvVarsCm: "pihole-configuration"
+  extraEnvVarsCM: "pihole-configuration"
 
   extraEnvVarsSecret: "pihole-password"
 
