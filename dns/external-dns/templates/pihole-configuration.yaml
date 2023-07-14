@@ -2,7 +2,7 @@ apiVersion: v1
 data:
   EXTERNAL_DNS_PIHOLE_SERVER: {{ .Values.pihole_server }}
   EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY: {{ .Values.pihole_skip_verify }}
-kind: Configmap
+kind: ConfigMap
 metadata:
   name: pihole-configuration
 type: Opaque
