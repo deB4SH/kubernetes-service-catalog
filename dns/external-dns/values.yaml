@@ -10,8 +10,8 @@ external-dns:
     - --policy=upsert-only
     - --provider=pihole
 
-  #extraEnvVars:
-  #  - pihole-configuration
+  extraEnvVars:
+    - pihole-configuration
 
   #extraEnvVarsSecret: pihole-password
 
