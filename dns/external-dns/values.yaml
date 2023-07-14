@@ -13,7 +13,7 @@ external-dns:
   extraEnvVars:
     - pihole-configuration
 
-  extraEnvVarsSecret: pihole-password
+  #extraEnvVarsSecret: pihole-password
 
   rbac:
     pspEnabled: true
