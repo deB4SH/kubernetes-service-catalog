@@ -10,10 +10,9 @@ external-dns:
     - --policy=upsert-only
     - --provider=pihole
 
-  extraEnvVars:
-    - pihole-configuration
+  extraEnvVarsCm: "pihole-configuration"
 
-  #extraEnvVarsSecret: pihole-password
+  extraEnvVarsSecret: "pihole-password"
 
   rbac:
     pspEnabled: true
