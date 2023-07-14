@@ -1,0 +1,19 @@
+pihole_server: "overlay_me"
+pihole_password: "overlay_me"
+pihole_skip_verify: true
+
+external-dns:
+  extraArgs:
+    - --source=service
+    - --source=ingress
+    - --registry=noop
+    - --policy=upsert-only
+    - --provider=pihole
+
+  extraEnvVars:
+    - pihole-configuration
+
+  extraEnvVarsSecret: pihole-password
+
+  rbac:
+    pspEnabled: true
