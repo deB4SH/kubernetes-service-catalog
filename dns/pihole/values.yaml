@@ -1,0 +1,20 @@
+pihole:
+  persistentVolumeClaim:
+    enabled: true
+
+  podDnsConfig:
+    enabled: true
+    policy: "None"
+    nameservers:
+      - 8.8.8.8 
+      - 8.8.4.4
+
+  serviceWeb:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: pihole-svc
+    type: LoadBalancer
+
+  serviceDns:
+    annotations:
+      metallb.universe.tf/allow-shared-ip: pihole-svc
+    type: LoadBalancer
