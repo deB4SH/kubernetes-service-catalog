@@ -3,7 +3,7 @@ pihole_password: "overlay_me"
 pihole_skip_verify: "true"
 
 external-dns:
-  extraArgs:
+  args:
     - --source=service
     - --source=ingress
     - --registry=noop
