@@ -18,6 +18,10 @@ spec:
       labels:
         app: homeassistant
     spec:
+      {{ if .Values.deployment.hostNetwork }}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      {{ end }}
       containers:
         - name: homeassistant
           image: homeassistant/home-assistant:2023.7
@@ -39,10 +43,6 @@ spec:
               name: config
           ports:
             - containerPort: 8123
-      {{ if .Values.deployment.hostNetwork }}
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
-      {{ end }}
       volumes:
         - name: data
           persistentVolumeClaim:
