@@ -30,9 +30,6 @@ spec:
           {{ if .Values.deployment.hostNetwork }}
           hostNetwork: true
           {{ end }}
-          env:
-            - name: EULA
-              value: "TRUE"
           volumeMounts:
             - mountPath: "/config"
               name: data
