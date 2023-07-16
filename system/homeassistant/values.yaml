@@ -1,5 +1,6 @@
 deployment:
   sleepStart: false
+  hostNetwork: true
 
 pvc:
   data:

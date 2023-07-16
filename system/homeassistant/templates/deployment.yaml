@@ -27,6 +27,9 @@ spec:
           command: [ "/bin/bash", "-c", "--" ]
           args: [ "while true; do sleep 30; done;" ]
           {{ end }}
+          {{ if .Values.deployment.hostNetwork }}
+          hostNetwork: true
+          {{ end }}
           env:
             - name: EULA
               value: "TRUE"
