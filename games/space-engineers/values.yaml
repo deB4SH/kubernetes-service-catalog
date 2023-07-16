@@ -1,0 +1,8 @@
+env:
+  winedebug: "-all"
+  instanceName: "Test Instance"
+  publicIp: "127.0.0.1"
+
+resources: #in Mi
+  memoryRequest: "8000"
+  memoryLimit: "8000"

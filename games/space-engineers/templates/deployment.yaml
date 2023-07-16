@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-engineers
+  labels:
+    app: space-engineers
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  progressDeadlineSeconds: 600
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: space-engineers
+  template:
+    metadata:
+      labels:
+        app: space-engineers
+    spec:
+      containers:
+        - name: game
+          image: devidian/spaceengineers:latest
+          imagePullPolicy: Always
+          # Just spin & wait forever
+          #command: [ "/bin/bash", "-c", "--" ]
+          #args: [ "while true; do sleep 30; done;" ]
+          env:
+            - name: WINEDEBUG
+              value: "{{ .Values.env.winedebug}}"
+            - name: INSTANCE_NAME
+              value: "{{ .Values.env.instanceName}}"
+            - name: PUBLIC_IP
+              value: "{{ .Values.env.publicIp}}"
+          volumeMounts:
+            - mountPath: /data/world
+              name: data
+            - mountPath: /init
+              name: config
+          ports:
+            - containerPort: 27016
+              protocol: UDP
+          resources:
+            limits:
+              memory: "{{ .Values.resources.memoryLimit}}"Mi
+            requests:
+              memory: "{{ .Values.resources.memoryRequests}}"Mi
+          tty: true
+          stdin: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minecraft-data-new
+        - name: config
+          configMap:
+            name: minecraft-settings

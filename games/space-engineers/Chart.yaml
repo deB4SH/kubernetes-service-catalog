@@ -1,0 +1,4 @@
+apiVersion: v2
+name: space-engineers
+version: 1.0.0
+description: This Chart deploys space-engineers.
