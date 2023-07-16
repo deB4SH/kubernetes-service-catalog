@@ -30,6 +30,10 @@ spec:
           {{ if .Values.deployment.hostNetwork }}
           hostNetwork: true
           {{ end }}
+          {{ if .Values.deployment.securityPrivilegeEscalation }}
+          securityContext:
+            allowPrivilegeEscalation: false
+          {{ end }}
           volumeMounts:
             - mountPath: "/config"
               name: data

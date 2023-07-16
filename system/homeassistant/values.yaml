@@ -1,6 +1,7 @@
 deployment:
   sleepStart: false
   hostNetwork: true
+  securityPrivilegeEscalation: false
 
 pvc:
   data:
@@ -18,18 +19,18 @@ ingress:
 configuration:
   homeassistant: |
     homeassistant:
-    name: Home
-    latitude: 0
-    longitude: 0
-    elevation: 0
-    unit_system: metric
-    time_zone: America/Phoenix
-    auth_providers:
-      - type: homeassistant
-    default_config:
-    http:
-      ip_ban_enabled: false
-      login_attempts_threshold: 5
-      use_x_forwarded_for: true
-      trusted_proxies:
-        - 10.1.0.0/16
+      name: Home
+      latitude: 0
+      longitude: 0
+      elevation: 0
+      unit_system: metric
+      time_zone: America/Phoenix
+      auth_providers:
+        - type: homeassistant
+      default_config:
+      http:
+        ip_ban_enabled: false
+        login_attempts_threshold: 5
+        use_x_forwarded_for: true
+        trusted_proxies:
+          - 10.1.0.0/16
