@@ -27,10 +27,6 @@ spec:
           command: [ "/bin/bash", "-c", "--" ]
           args: [ "while true; do sleep 30; done;" ]
           {{ end }}
-          {{ if .Values.deployment.hostNetwork }}
-          hostNetwork: true
-          dnsPolicy: ClusterFirstWithHostNet
-          {{ end }}
           {{ if .Values.deployment.securityPrivilegeEscalation }}
           securityContext:
             allowPrivilegeEscalation: false
@@ -43,6 +39,10 @@ spec:
               name: config
           ports:
             - containerPort: 8123
+      {{ if .Values.deployment.hostNetwork }}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      {{ end }}
       volumes:
         - name: data
           persistentVolumeClaim:
