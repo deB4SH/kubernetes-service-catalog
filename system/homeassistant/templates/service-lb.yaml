@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: homeassistant-lb
+spec:
+  selector:
+    app: homeassistant
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8123
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 8123
+      protocol: TCP
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer
