@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft
+  labels:
+    app: minecraft
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  progressDeadlineSeconds: 600
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minecraft
+  template:
+    metadata:
+      labels:
+        app: minecraft
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/maxi0604/create-astral:main
+          imagePullPolicy: Always
+          {{ if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
+          env:
+            - name: EULA
+              value: "TRUE"
+          volumeMounts:
+            - mountPath: /data/world
+              name: data
+            - mountPath: /init
+              name: config
+          ports:
+            - containerPort: 25565
+              protocol: UDP
+            - containerPort: 25565
+              protocol: TCP
+            - containerPort: 19565
+              protocol: UDP
+            - containerPort: 19565
+              protocol: TCP
+          resources:
+            limits:
+              memory: {{ .Values.deployment.memory.limit }}Mi
+            requests:
+              memory: {{ .Values.deployment.memory.requests }}Mi
+          tty: true
+          stdin: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: data
+        - name: config
+          configMap:
+            name: settings
