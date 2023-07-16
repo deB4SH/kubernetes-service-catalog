@@ -29,6 +29,7 @@ spec:
           {{ end }}
           {{ if .Values.deployment.hostNetwork }}
           hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
           {{ end }}
           {{ if .Values.deployment.securityPrivilegeEscalation }}
           securityContext:
