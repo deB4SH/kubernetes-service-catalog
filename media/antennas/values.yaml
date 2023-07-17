@@ -1,0 +1,17 @@
+configuration:
+  antennas_url: "http://127.0.0.1:5004"
+  tvheaded_url: "http://127.0.0.1:9981"
+  tuner_count: "2"
+
+deployment:
+  image:
+    location: "ghcr.io/jfarseneau/antennas"
+    tag: "4.2.0"
+
+ingress:
+  hostname: antennas.lan
+  issuer: selfsigned-ca-issuer
+  ingressClass: traefik
+
+service:
+  loadbalancerIp: "127.0.0.1"

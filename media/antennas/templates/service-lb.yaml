@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: antennas-lb
+spec:
+  ports:
+    - name: http-antennas
+      protocol: TCP
+      port: 5004
+      targetPort: 5004
+  selector:
+    app: antennas
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.loadbalancerIp }}
+  type: LoadBalancer
