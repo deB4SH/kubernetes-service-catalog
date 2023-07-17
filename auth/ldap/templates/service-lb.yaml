@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ldap-lb
+spec:
+  ports:
+    - name: ldap
+      protocol: TCP
+      port: 389
+      targetPort: 389 #container port
+    - name: ldaps
+      protocol: TCP
+      port: 636
+      targetPort: 636 #container port
+  selector:
+    app: ldap
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.loadBalancerIp }}
+  type: LoadBalancer

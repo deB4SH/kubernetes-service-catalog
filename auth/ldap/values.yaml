@@ -1,0 +1,42 @@
+deployment:
+  image:
+    location: ghcr.io/deb4sh/ldap-homelab
+    tag: sha-1033f81
+  resources:
+    requests:
+      memory: "250"
+      cpu: "50"
+    limits:
+      memory: "250"
+      cpu: "100"
+
+service:
+  loadbalancerIp: "127.0.0.1"
+
+configuration:
+  basedn: "dc=home,dc=lab"
+  groupConfiguration: []
+    # - cn: "testgroup"
+    #   gidNumber: "2000"
+    #   description: "my awesome test group"
+  userConfiguration: []
+    # - cn: "test1"
+    #   uidNumber: "1000"
+    #   gidNumber: "1000"
+    #   givenName: "Test"
+    #   sn: "User"
+    #   mail: "test@user.tld"
+    #   userPassword: "{SSHA}h4Pu"
+    # - cn: "test2"
+    #   uidNumber: "1001"
+    #   gidNumber: "1001"
+    #   givenName: "Random"
+    #   sn: "Dude"
+    #   mail: "random@dude.tld"
+    #   userPassword: "{SSHA}1234nopasswd"
+  userMemberOf: []
+    # - userCn: "test1"
+    #   groupName: "testgroup"
+  groupMemberCn: []
+    # - userCn: "test1"
+    #   groupName: "testgroup"

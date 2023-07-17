@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ldap
+  labels:
+    app: ldap
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: ldap
+  template:
+    metadata:
+      labels:
+        app: ldap
+    spec:
+      containers:
+        - name: ldap
+          image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: {{.Values.deployment.resources.requests.cpu}}m
+              memory: {{.Values.deployment.resources.requests.memory}}Mi
+            limits:
+              cpu: {{.Values.deployment.resources.limits.cpu}}m
+              memory: {{.Values.deployment.resources.limits.memory}}Mi
+          ports:
+            - name: ldap
+              containerPort: 389
+            - name: ldaps
+              containerPort: 636
+          volumeMounts:
+            - name: users
+              mountPath: /root/02_users
+            - name: groups
+              mountPath: /root/01_groups
+            - name: userMemberOf
+              mountPath: /root/03_user_groups/userMemberof
+            - name: groupsMemberUid
+              mountPath: /root/03_user_groups/ldap-groupMemberId
+      volumes:
+        - name: users
+          configMap:
+            name: ldap-users
+        - name: groups
+          configMap:
+            name: ldap-groups
+        - name: userMemberOf
+          configMap:
+            name: ldap-userMemberOf
+        - name: groupsMemberUid
+          configMap:
+            name: ldap-groupMemberId
