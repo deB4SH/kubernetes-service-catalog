@@ -19,7 +19,6 @@ configuration:
   groupConfiguration: []
     # - cn: "testgroup"
     #   gidNumber: "2000"
-    #   description: "my awesome test group"
   userConfiguration: []
     # - cn: "test1"
     #   uidNumber: "1000"
