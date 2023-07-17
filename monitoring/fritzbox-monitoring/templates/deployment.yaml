@@ -28,9 +28,9 @@ spec:
           {{ end }}
           env:
           - name: PASSWORD
-            value: {{ .Values.deployment.env.password }}
+            value: "{{ .Values.deployment.env.password }}"
           - name: USERNAME
-            value: {{ .Values.deployment.env.username }}
+            value: "{{ .Values.deployment.env.username }}"
           - name: GATEWAY_URL
             value: {{ .Values.deployment.env.gateway_url }}
           - name: LISTEN_ADDRESS
