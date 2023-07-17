@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-steamcmd
+spec:
+  accessModes:
+    - ReadWriteMany
+  {{ if .Values.pvc.steamcmd.storageClass }}
+  storageClassName: {{ .Values.pvc.steamcmd.storageClass }}
+  {{ end}}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.steamcmd.storageSize }}Gi

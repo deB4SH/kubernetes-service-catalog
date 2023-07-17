@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-dedicated
+spec:
+  accessModes:
+    - ReadWriteMany
+  {{ if .Values.pvc.dedicated.storageClass }}
+  storageClassName: {{ .Values.pvc.dedicated.storageClass }}
+  {{ end}}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.dedicated.storageSize }}Gi

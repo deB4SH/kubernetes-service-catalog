@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-lb-udp
+  annotations:
+spec:
+  selector:
+    app: space-engineers
+  ports:
+    - name: game
+      port: 27016
+      protocol: UDP
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer

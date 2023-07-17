@@ -1,8 +1,31 @@
-env:
-  winedebug: "-all"
-  instanceName: "Test Instance"
-  publicIp: "127.0.0.1"
+deployment:
+  sleepStart: false
+  image:
+    location: devidian/spaceengineers
+    tag: winestaging
+  env:
+    winedebug: "-all"
+    instanceName: "Test Instance"
+    publicIp: "127.0.0.1"
+  resources:
+    requests:
+      memory: "8000"
+    limits:
+      memory: "8000"
 
-resources: #in Mi
-  memoryRequest: "8000"
-  memoryLimit: "8000"
+service: 
+  ip: 127.0.0.1
+
+pvc:
+  plugins:
+    storageClass:
+    storageSize: 10
+  instances:
+    storageClass:
+    storageSize: 50
+  dedicated:
+    storageClass:
+    storageSize: 100
+  steamcmd:
+    storageClass:
+    storageSize: 5

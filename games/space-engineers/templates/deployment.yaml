@@ -20,37 +20,42 @@ spec:
     spec:
       containers:
         - name: game
-          image: devidian/spaceengineers:latest
-          imagePullPolicy: Always
+          image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: IfNotPresent
+          {{ if .Values.deployment.sleepStart }}
           # Just spin & wait forever
-          #command: [ "/bin/bash", "-c", "--" ]
-          #args: [ "while true; do sleep 30; done;" ]
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
           env:
             - name: WINEDEBUG
-              value: "{{ .Values.env.winedebug}}"
+              value: "{{ .Values.deployment.env.winedebug}}"
             - name: INSTANCE_NAME
-              value: "{{ .Values.env.instanceName}}"
+              value: "{{ .Values.deployment.env.instanceName}}"
             - name: PUBLIC_IP
-              value: "{{ .Values.env.publicIp}}"
+              value: "{{ .Values.deployment.env.publicIp}}"
           volumeMounts:
             - mountPath: /data/world
               name: data
-            - mountPath: /init
-              name: config
           ports:
             - containerPort: 27016
               protocol: UDP
+          {{ if .Values.deployment.resources.enabled}}
           resources:
             limits:
-              memory: "{{ .Values.resources.memoryLimit}}"Mi
+              memory: "{{ .Values.resources.limits.memory}}"Mi
             requests:
-              memory: "{{ .Values.resources.memoryRequests}}"Mi
-          tty: true
-          stdin: true
+              memory: "{{ .Values.resources.requests.memory}}"Mi
       volumes:
-        - name: data
+        - name: steamcmd
           persistentVolumeClaim:
-            claimName: minecraft-data-new
-        - name: config
-          configMap:
-            name: minecraft-settings
+            claimName: data-steamcmd
+        - name: instances
+          persistentVolumeClaim:
+            claimName: data-instances
+        - name: plugins
+          persistentVolumeClaim:
+            claimName: data-plugins
+        - name: dedicated
+          persistentVolumeClaim:
+            claimName: data-dedicated

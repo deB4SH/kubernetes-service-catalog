@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-instances
+spec:
+  accessModes:
+    - ReadWriteMany
+  {{ if .Values.pvc.instances.storageClass }}
+  storageClassName: {{ .Values.pvc.instances.storageClass }}
+  {{ end}}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.instances.storageSize }}Gi
