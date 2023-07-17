@@ -22,8 +22,7 @@ spec:
                 operator: In
                 values:
                 {{- range .Values.hosts }}
-                - {{- . -}}
-                {{ end }}
+                - {{ . }} {{ end }}
       initContainers:
       - name: intel-gpu-initcontainer
         image: intel/intel-gpu-initcontainer:devel
