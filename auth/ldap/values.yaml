@@ -1,7 +1,7 @@
 deployment:
   image:
     location: ghcr.io/deb4sh/ldap-homelab
-    tag: sha-1033f81
+    tag: sha-ed2cd27
   resources:
     requests:
       memory: "500"
