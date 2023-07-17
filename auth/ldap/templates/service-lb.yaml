@@ -15,5 +15,5 @@ spec:
   selector:
     app: ldap
   externalTrafficPolicy: Local
-  loadBalancerIP: {{ .Values.service.loadBalancerIp }}
+  loadBalancerIP: {{ .Values.service.loadbalancerIp }}
   type: LoadBalancer
