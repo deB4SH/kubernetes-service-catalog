@@ -46,8 +46,14 @@ spec:
             - name: PUBLIC_IP
               value: "{{ .Values.deployment.env.publicIp}}"
           volumeMounts:
-            - mountPath: /data/world
-              name: data
+            - mountPath: /appdata/space-engineers/plugins
+              name: plugins
+            - mountPath: /appdata/space-engineers/instances
+              name: instances
+            - mountPath: /appdata/space-engineers/SpaceEngineersDedicated
+              name: dedicated
+            - mountPath: /root/.steam
+              name: steamcmd
           ports:
             - containerPort: 27016
               protocol: UDP
