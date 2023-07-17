@@ -51,7 +51,7 @@ spec:
             name: ldap-groups
         - name: userMemberOf
           configMap:
-            name: ldap-userMemberOf
+            name: ldap-usermemberof
         - name: groupsMemberUid
           configMap:
-            name: ldap-groupMemberId
+            name: ldap-groupmemberid

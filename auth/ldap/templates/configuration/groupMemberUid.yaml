@@ -8,4 +8,4 @@ data:
         memberUid: {{ .userCn }}{{end}}
 kind: ConfigMap
 metadata:
-  name: ldap-groupMemberId
+  name: ldap-groupmemberid

@@ -8,4 +8,4 @@ data:
         memberOf: cn={{ .groupName }},ou=groups,{{ $.Values.configuration.basedn }}{{end}}
 kind: ConfigMap
 metadata:
-  name: ldap-userMemberOf
+  name: ldap-usermemberof
