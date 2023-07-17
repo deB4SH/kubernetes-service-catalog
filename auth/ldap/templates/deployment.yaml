@@ -22,12 +22,14 @@ spec:
           image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
           imagePullPolicy: IfNotPresent
           resources:
+            {{ if .Values.deployment.resources.enabled }}
             requests:
               cpu: {{.Values.deployment.resources.requests.cpu}}m
               memory: {{.Values.deployment.resources.requests.memory}}Mi
             limits:
               cpu: {{.Values.deployment.resources.limits.cpu}}m
               memory: {{.Values.deployment.resources.limits.memory}}Mi
+            {{ end }}
           ports:
             - name: ldap
               containerPort: 389

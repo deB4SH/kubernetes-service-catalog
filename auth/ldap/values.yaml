@@ -3,6 +3,7 @@ deployment:
     location: ghcr.io/deb4sh/ldap-homelab
     tag: sha-ed2cd27
   resources:
+    enabled: false
     requests:
       memory: "500"
       cpu: "250"
