@@ -1,0 +1,6 @@
+ipaddresspool:
+  adresses: 127.0.0.1-127.0.0.100
+
+metallb:
+  rbac:
+    create: true
