@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fritzbox-monitoring
+  labels:
+    app: fritzbox-monitoring
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  progressDeadlineSeconds: 600
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: fritzbox-monitoring
+  template:
+    metadata:
+      labels:
+        app: fritzbox-monitoring
+    spec:
+      containers:
+        - name: fritzbox-monitoring
+          image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          {{ if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
+          env:
+          - name: PASSWORD
+            value: {{ .Values.deployment.env.password }}
+          - name: USERNAME
+            value: {{ .Values.deployment.env.username }}
+          - name: GATEWAY_URL
+            value: {{ .Values.deployment.env.gateway_url }}
+          - name: LISTEN_ADDRESS
+            value: {{ .Values.deployment.env.listen_adress }}
+        resources:
+          limits:
+            memory: {{ .Values.deployment.resources.limits.memory }}Mi
+            cpu: {{ .Values.deployment.resources.limits.cpu }}m
+        ports:
+          - containerPort: 9042

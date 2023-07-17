@@ -1,0 +1,17 @@
+deployment:
+  sleepStart: false
+  image:
+    location: ghcr.io/sberk42/fritzbox_exporter/fritzbox_exporter
+    tag: 4a4cc447b575b13c3e1c3fbc2a83d511070fa2ca
+  resources:
+    limits:
+      memory: 256
+      cpu: 50
+  env:
+    password: overlay_me
+    username: overlay_me
+    gateway_url: "http://127.0.0.1:49000"
+    listen_address: "0.0.0.0:9042"
+
+serviceMonitor:
+  enabled: false

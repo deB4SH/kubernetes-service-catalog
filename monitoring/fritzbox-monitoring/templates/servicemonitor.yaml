@@ -1,0 +1,15 @@
+{{ if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: fritzbox-monitoring
+  labels:
+    app: fritzbox-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: fritzbox-monitoring
+  endpoints:
+  - port: web
+    path: /metrics
+{{ end }}
