@@ -18,6 +18,17 @@ spec:
       labels:
         app: space-engineers
     spec:
+      {{ if .Values.deployment.nodeaffinity.enabled }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - {{ .Values.deployment.nodeaffinity.node}}
+      {{ end }}
       containers:
         - name: game
           image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}

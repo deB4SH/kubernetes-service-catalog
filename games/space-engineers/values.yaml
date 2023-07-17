@@ -1,5 +1,8 @@
 deployment:
   sleepStart: false
+  nodeaffinity:
+    enabled: false
+    node: ""
   image:
     location: devidian/spaceengineers
     tag: winestaging
@@ -8,6 +11,7 @@ deployment:
     instanceName: "Test Instance"
     publicIp: "127.0.0.1"
   resources:
+    enabled: false
     requests:
       memory: "8000"
     limits:
