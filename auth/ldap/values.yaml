@@ -4,11 +4,11 @@ deployment:
     tag: sha-1033f81
   resources:
     requests:
-      memory: "250"
+      memory: "500"
       cpu: "50"
     limits:
-      memory: "250"
-      cpu: "100"
+      memory: "500"
+      cpu: "250"
 
 service:
   loadbalancerIp: "127.0.0.1"
