@@ -4,7 +4,7 @@ metadata:
   name: data-steamcmd
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.steamcmd.accessMode }}
   {{ if .Values.pvc.steamcmd.storageClass }}
   storageClassName: {{ .Values.pvc.steamcmd.storageClass }}
   {{ end}}

@@ -4,7 +4,7 @@ metadata:
   name: data-plugins
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.plugins.accessMode }}
   {{ if .Values.pvc.plugins.storageClass }}
   storageClassName: {{ .Values.pvc.plugins.storageClass }}
   {{ end}}

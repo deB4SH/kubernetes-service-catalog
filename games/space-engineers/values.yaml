@@ -22,14 +22,18 @@ service:
 
 pvc:
   plugins:
+    accessMode: ReadWriteOnce
     storageClass:
     storageSize: 10
   instances:
+    accessMode: ReadWriteOnce
     storageClass:
     storageSize: 50
   dedicated:
+    accessMode: ReadWriteOnce
     storageClass:
     storageSize: 100
   steamcmd:
+    accessMode: ReadWriteOnce
     storageClass:
     storageSize: 5

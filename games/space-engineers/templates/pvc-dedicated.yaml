@@ -4,7 +4,7 @@ metadata:
   name: data-dedicated
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.dedicated.accessMode }}
   {{ if .Values.pvc.dedicated.storageClass }}
   storageClassName: {{ .Values.pvc.dedicated.storageClass }}
   {{ end}}

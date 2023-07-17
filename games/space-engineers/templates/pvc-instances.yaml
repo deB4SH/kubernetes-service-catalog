@@ -4,7 +4,7 @@ metadata:
   name: data-instances
 spec:
   accessModes:
-    - ReadWriteMany
+    - {{ .Values.pvc.instances.accessMode }}
   {{ if .Values.pvc.instances.storageClass }}
   storageClassName: {{ .Values.pvc.instances.storageClass }}
   {{ end}}
