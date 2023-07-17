@@ -38,9 +38,9 @@ spec:
               mountPath: /root/02_users
             - name: groups
               mountPath: /root/01_groups
-            - name: userMemberOf
+            - name: usermemberof
               mountPath: /root/03_user_groups/userMemberof
-            - name: groupsMemberUid
+            - name: groupsmemberuid
               mountPath: /root/03_user_groups/ldap-groupMemberId
       volumes:
         - name: users
@@ -49,9 +49,9 @@ spec:
         - name: groups
           configMap:
             name: ldap-groups
-        - name: userMemberOf
+        - name: usermemberof
           configMap:
             name: ldap-usermemberof
-        - name: groupsMemberUid
+        - name: groupsmemberuid
           configMap:
             name: ldap-groupmemberid
