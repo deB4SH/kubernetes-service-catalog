@@ -1,0 +1,39 @@
+deployment:
+  sleepStart: false
+  image:
+    location: ghcr.io/linuxserver/hedgedoc
+    tag: 1.9.8-ls94
+  resources:
+    limits:
+      cpu: 500
+      memory: 500
+    requests:
+      cpu: 50
+      memory: 200 
+
+pvc:
+  data:
+    accessMode: ReadWriteMany
+    #only applied when set
+    storageClass:
+    #size in Gi
+    storageSize: 5
+
+service: 
+  ip: 127.0.0.1
+
+ingress:
+  name: hedgedoc.local
+
+configuration:
+  domain: "overlay-me"
+  db_url: "overlay-me"
+  allow_origin: "overlay-me"
+  ldap_enabled: true
+  ldap_url: "overlay-me"
+  ldap_binddn: "overlay-me"
+  ldap_bindcredential: "overlay-me"
+  ldap_searchbase: "overlay-me"
+  ldap_searchfilter: "(&(objectClass=person)(|(cn={{username}})(mail={{username}})))"
+  ldap_useridfield: "sAMAccountName"
+  ldap_providername: "overlay-me"

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hedgedoc
+  labels:
+    app: hedgedoc
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  progressDeadlineSeconds: 600
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: hedgedoc
+  template:
+    metadata:
+      labels:
+        app: hedgedoc
+    spec:
+      containers:
+        - name: hedgedoc
+          image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: IfNotPresent
+          {{ if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
+          envFrom:
+            - configMapRef:
+                name: hedgedoc-configuration
+          resources:
+            limits:
+              cpu: {{ .Values.deployment.ressources.limits.cpu }}m
+              memory: {{ .Values.deployment.ressources.limits.memory }}M
+            requests:
+              cpu: {{ .Values.deployment.ressources.requests.cpu }}m
+              memory: {{ .Values.deployment.ressources.requests.memory }}M
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          volumeMounts:
+            - mountPath: "/public/uploads"
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: data
+        

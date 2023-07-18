@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hedgedoc-configuration
+data:
+  PUID: "1000"
+  PGID: "1000"
+
+  CMD_DOMAIN: {{ .Values.configuration.domain }}
+  CMD_PROTOCOL_USESSL: "true"
+  CMD_HOST: "0.0.0.0"
+  CMD_PORT: "8080"
+  CMD_URL_ADDPORT: "false"
+
+  CMD_DB_URL: {{ .Values.configuration.db_url }}
+
+  CMD_ALLOW_EMAIL_REGISTER: "false"
+  CMD_ALLOW_ANONYMOUS_EDITS: "false"
+  CMD_REQUIRE_FREEURL_AUTHENTICATION: "true"
+  CMD_ALLOW_FREEURL: "true"
+  CMD_DEFAULT_PERMISSION: "protected"
+  CMD_ALLOW_ORIGIN: {{ .Values.configuration.allow_origin }}
+  CMD_USECDN: "false"
+  CMD_ALLOW_GRAVATAR: "false"
+  CMD_AUTO_VERSION_CHECK: "false"
+  CMD_IMAGE_UPLOAD_TYPE: "filesystem"
+
+  {{ if .Values.configuration.ldap_enabled }}
+  CMD_LDAP_URL: "ldap://{{.Values.configuration.ldap_url}}"
+  CMD_LDAP_BINDDN: "{{.Values.configuration.ldap_binddn}}"
+  CMD_LDAP_BINDCREDENTIALS: "{{.Values.configuration.ldap_bindcredential}}"
+  CMD_LDAP_SEARCHBASE: "{{.Values.configuration.ldap_searchbase}}"
+  CMD_LDAP_SEARCHFILTER: "{{.Values.configuration.ldap_searchfilter}}"
+  CMD_LDAP_USERIDFIELD: "{{.Values.configuration.ldap_useridfield}}"
+  CMD_LDAP_PROVIDERNAME: "{{.Values.configuration.ldap_providername}}"
+  {{ end }}
+
+  CMD_LOGLEVEL: "info"
+  DEBUG: "info"
