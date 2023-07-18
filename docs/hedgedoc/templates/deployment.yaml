@@ -32,11 +32,11 @@ spec:
                 name: hedgedoc-configuration
           resources:
             limits:
-              cpu: {{ .Values.deployment.ressources.limits.cpu }}m
-              memory: {{ .Values.deployment.ressources.limits.memory }}M
+              cpu: {{ .Values.deployment.resources.limits.cpu }}m
+              memory: {{ .Values.deployment.resources.limits.memory }}M
             requests:
-              cpu: {{ .Values.deployment.ressources.requests.cpu }}m
-              memory: {{ .Values.deployment.ressources.requests.memory }}M
+              cpu: {{ .Values.deployment.resources.requests.cpu }}m
+              memory: {{ .Values.deployment.resources.requests.memory }}M
           ports:
             - containerPort: 8080
               name: http
