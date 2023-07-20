@@ -18,6 +18,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: antennas-clusterip
+                name: {{lower .Release.Name}}-clusterip
                 port:
-                  number: 5004
+                  number: 80
