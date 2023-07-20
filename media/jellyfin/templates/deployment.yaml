@@ -70,6 +70,8 @@ spec:
             {{- range .Values.pvc -}}
             - name: {{lower .Release.Name}}-{{.name}}
               mountPath: {{.mountPath}}
+              {{if .isReadOnly}}
+              readOnly: {{.isReadOnly}} {{end}}
             {{end}}
       volumes:
         - name: log

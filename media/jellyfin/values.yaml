@@ -29,12 +29,14 @@ pvc:
     storageClass: 
     size: 
     mountPoint: /config
+    isReadOnly: false
   - name: metadata
     isCifs: false
     accessMode: ReadWriteOnce
     storageClass:
     size:
     mountPoint: /metadata
+    isReadOnly: false
   - name: dvr
     isSmb: true
     smbSource: "//127.0.0.1/Recorder"
@@ -42,6 +44,7 @@ pvc:
     smbPassword: "overlayme"
     size: 200
     mountPoint: /dvr
+    isReadOnly: false
 
   
 
