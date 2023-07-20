@@ -1,0 +1,54 @@
+deployment:
+  sleepStart: false
+  image:
+    location: "ghcr.io/deb4sh/homelab-jellyfin-image"
+    tag: "10.8.10"
+  strategy:
+    type: Recreate
+  nodeaffinity:
+    enabled: false
+    node: ""
+  resources:
+    gpu-limitation:
+      enabled: true
+      annotationname: "gpu.intel.com/i915"
+      value: "1"
+    limits:
+      enabled: false
+      cpu: 250 #if enabled please modify
+      memory: 100 #if enabled please modify
+    requests:
+      enabled: false
+      cpu: 100 #if enabled please modify
+      memory: 50 #if enabled please modify
+
+pvc:
+  - name: configuration
+    isCifs: false
+    accessMode: ReadWriteOnce
+    storageClass: 
+    size: 
+    mountPoint: /config
+  - name: metadata
+    isCifs: false
+    accessMode: ReadWriteOnce
+    storageClass:
+    size:
+    mountPoint: /metadata
+  - name: dvr
+    isSmb: true
+    smbSource: "//127.0.0.1/Recorder"
+    smbUsername: "overlayme"
+    smbPassword: "overlayme"
+    size: 200
+    mountPoint: /dvr
+
+  
+
+ingress:
+  hostname: jellyfin.lan
+  issuer: selfsigned-ca-issuer
+  ingressClass: traefik
+
+service:
+  loadbalancerIp: "127.0.0.1"

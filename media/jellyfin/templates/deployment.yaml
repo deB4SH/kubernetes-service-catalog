@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{lower .Release.Name}}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: {{.Values.deployment.strategy.type}}
+  selector:
+    matchLabels:
+      app: {{lower .Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{lower .Release.Name}}
+      name: {{lower .Release.Name}}
+    spec:
+      {{ if .Values.deployment.nodeaffinity.enabled }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - {{ .Values.deployment.nodeaffinity.node}}
+      {{ end }}
+      containers:
+        - image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: IfNotPresent
+          name: jellyfin
+          {{ if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
+          ports:
+            - containerPort: 8080
+              name: port8080
+              protocol: TCP
+            - containerPort: 8096
+              name: port8096
+              protocol: TCP
+            - containerPort: 80
+              name: port80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{lower .Release.Name}}-environment
+          resources:
+            limits:
+              {{ if .Values.deployment.resources.gpu-limitation.enabled }}
+              {{.Values.deployment.resources.gpu-limitation.annotationname}}: {{.Values.deployment.resources.gpu-limitation.value}} {{end}}
+              {{ if .Values.deployment.resources.limits.enabled }}
+              cpu: {{.Values.deployment.resources.limits.cpu}}m
+              memory: {{.Values.deployment.resources.limits.memory}}M {{end}}
+            requests:
+              {{ if .Values.deployment.resources.requests.enabled }}
+              cpu: {{.Values.deployment.resources.requests.cpu}}m
+              memory: {{.Values.deployment.resources.requests.memory}}M {{end}}
+          volumeMounts:
+            - name: log
+              mountPath: /log
+            - name: transcode
+              mountPath: /transcode
+            - name: cache
+              mountPath: /cache
+            {{- range .Values.pvc -}}
+            - name: {{lower .Release.Name}}-{{.name}}
+              mountPath: {{.mountPath}}
+            {{end}}
+      volumes:
+        - name: log
+          emptyDir: {}
+        - name: transcode
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
+        {{- range .Values.pvc -}}
+        - name: {{lower .Release.Name}}-{{.name}}
+          persistentVolumeClaim:
+            claimName: {{lower .Release.Name}}-{{.name}}
+        {{end}}
