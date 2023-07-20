@@ -47,17 +47,16 @@ spec:
               name: port80
               protocol: TCP
           envFrom:
-            - configMapRef:
-                name: {{lower .Release.Name}}-environment
+          - configMapRef:
+              name: jellyfin-environment
           resources:
             limits:
-              {{ if .Values.deployment.resources.gpulimitation.enabled }}
-              {{.Values.deployment.resources.gpulimitation.annotationname}}: {{.Values.deployment.resources.gpulimitation.value}} {{end}}
+              {{ if .Values.deployment.resources.gpulimitation.enabled }} {{.Values.deployment.resources.gpulimitation.annotationname}}: {{.Values.deployment.resources.gpulimitation.value}} {{end}}
               {{ if .Values.deployment.resources.limits.enabled }}
               cpu: {{.Values.deployment.resources.limits.cpu}}m
               memory: {{.Values.deployment.resources.limits.memory}}M {{end}}
+            {{ if .Values.deployment.resources.requests.enabled }}
             requests:
-              {{ if .Values.deployment.resources.requests.enabled }}
               cpu: {{.Values.deployment.resources.requests.cpu}}m
               memory: {{.Values.deployment.resources.requests.memory}}M {{end}}
           volumeMounts:
@@ -67,12 +66,14 @@ spec:
               mountPath: /transcode
             - name: cache
               mountPath: /cache
-            {{- range .Values.pvc -}}
+
+            {{- range .Values.pvc -}} {{ printf "\n" }}
             - name: {{lower $.Release.Name}}-{{.name}}
-              mountPath: {{.mountPath}}
+              mountPath: {{.mountPoint}}
               {{if .isReadOnly}}
               readOnly: {{.isReadOnly}} {{end}}
             {{end}}
+            
       volumes:
         - name: log
           emptyDir: {}
@@ -80,7 +81,8 @@ spec:
           emptyDir: {}
         - name: cache
           emptyDir: {}
-        {{- range .Values.pvc -}}
+
+        {{- range .Values.pvc -}} {{ printf "\n" }}
         - name: {{lower $.Release.Name}}-{{.name}}
           persistentVolumeClaim:
             claimName: {{lower $.Release.Name}}-{{.name}}

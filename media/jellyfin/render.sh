@@ -3,4 +3,4 @@ if [ -d ./test ]; then
     rm -rf ./test
 fi
 helm dependency build  
-helm template --output-dir ./test ./
+helm template --debug --release-name jellyfin  --output-dir ./test ./
