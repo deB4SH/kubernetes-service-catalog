@@ -9,7 +9,7 @@ deployment:
     enabled: false
     node: ""
   resources:
-    gpu-limitation:
+    gpulimitation:
       enabled: true
       annotationname: "gpu.intel.com/i915"
       value: "1"

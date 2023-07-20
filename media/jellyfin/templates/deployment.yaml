@@ -51,8 +51,8 @@ spec:
                 name: {{lower .Release.Name}}-environment
           resources:
             limits:
-              {{ if .Values.deployment.resources.gpu-limitation.enabled }}
-              {{.Values.deployment.resources.gpu-limitation.annotationname}}: {{.Values.deployment.resources.gpu-limitation.value}} {{end}}
+              {{ if .Values.deployment.resources.gpulimitation.enabled }}
+              {{.Values.deployment.resources.gpulimitation.annotationname}}: {{.Values.deployment.resources.gpulimitation.value}} {{end}}
               {{ if .Values.deployment.resources.limits.enabled }}
               cpu: {{.Values.deployment.resources.limits.cpu}}m
               memory: {{.Values.deployment.resources.limits.memory}}M {{end}}
