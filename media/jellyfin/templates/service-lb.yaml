@@ -4,12 +4,20 @@ metadata:
   name: {{lower .Release.Name}}-lb
 spec:
   ports:
-    - name: http-antennas
+    - name: http80
       protocol: TCP
-      port: 5004
-      targetPort: 5004
+      port: 80
+      targetPort: 80
+    - name: http8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: http8096
+      protocol: TCP
+      port: 8096
+      targetPort: 8096
   selector:
-    app: antennas
+    app: {{lower .Release.Name}}
   externalTrafficPolicy: Local
   loadBalancerIP: {{ .Values.service.loadbalancerIp }}
   type: LoadBalancer
