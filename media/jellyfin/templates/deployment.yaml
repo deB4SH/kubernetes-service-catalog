@@ -68,7 +68,7 @@ spec:
             - name: cache
               mountPath: /cache
             {{- range .Values.pvc -}}
-            - name: {{lower .Release.Name}}-{{.name}}
+            - name: {{lower $.Release.Name}}-{{.name}}
               mountPath: {{.mountPath}}
               {{if .isReadOnly}}
               readOnly: {{.isReadOnly}} {{end}}
@@ -81,7 +81,7 @@ spec:
         - name: cache
           emptyDir: {}
         {{- range .Values.pvc -}}
-        - name: {{lower .Release.Name}}-{{.name}}
+        - name: {{lower $.Release.Name}}-{{.name}}
           persistentVolumeClaim:
-            claimName: {{lower .Release.Name}}-{{.name}}
+            claimName: {{lower $.Release.Name}}-{{.name}}
         {{end}}
