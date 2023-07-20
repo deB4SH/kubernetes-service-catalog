@@ -24,14 +24,14 @@ deployment:
 
 pvc:
   - name: configuration
-    isCifs: false
+    isSmb: false
     accessMode: ReadWriteOnce
     storageClass: 
     size: 
     mountPoint: /config
     isReadOnly: false
   - name: metadata
-    isCifs: false
+    isSmb: false
     accessMode: ReadWriteOnce
     storageClass:
     size:
@@ -42,6 +42,7 @@ pvc:
     smbSource: "//127.0.0.1/Recorder"
     smbUsername: "overlayme"
     smbPassword: "overlayme"
+    accessMode: ReadWriteOnce
     size: 200
     mountPoint: /dvr
     isReadOnly: false

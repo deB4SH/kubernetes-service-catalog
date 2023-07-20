@@ -46,7 +46,7 @@ spec:
   {{ if .storageClass }}
   storageClassName: {{ .storageClass }}
   {{ end}}
-  {{ if .isCifs }}
+  {{ if .isSmb }}
   volumeName: {{lower $.Release.Name}}-{{.name}}
   storageClassName: ""
   {{ end}}
