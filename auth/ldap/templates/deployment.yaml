@@ -16,6 +16,11 @@ spec:
     metadata:
       labels:
         app: ldap
+      annotations:
+        checksum/users: {{ include (print $.Template.BasePath "/configuration/users.yaml") . | sha256sum }}
+        checksum/groups: {{ include (print $.Template.BasePath "/configuration/groups.yaml") . | sha256sum }}
+        checksum/userMemberOf: {{ include (print $.Template.BasePath "/configuration/userMemberOf.yaml") . | sha256sum }}
+        checksum/groupMemberUid: {{ include (print $.Template.BasePath "/configuration/groupMemberUid.yaml") . | sha256sum }}
     spec:
       containers:
         - name: ldap
