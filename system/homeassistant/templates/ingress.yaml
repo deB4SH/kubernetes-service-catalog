@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: homeassistant-ingress
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned-ca-issuer
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-    traefik.ingress.kubernetes.io/router.tls: true
+    cert-manager.io/cluster-issuer: "selfsigned-ca-issuer"
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   tls:
     - hosts:
