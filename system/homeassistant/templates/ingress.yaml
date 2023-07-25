@@ -4,8 +4,6 @@ metadata:
   name: homeassistant-ingress
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-ca-issuer
-    ingress.kubernetes.io/ssl-force-host: true
-    ingress.kubernetes.io/ssl-redirect: true
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
     traefik.ingress.kubernetes.io/router.tls: true
