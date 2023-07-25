@@ -17,6 +17,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: homeassistant-clusterip
+                name: homeassistant-lb
                 port:
                   number: 80
