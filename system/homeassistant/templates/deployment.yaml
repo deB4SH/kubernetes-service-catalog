@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         app: homeassistant
+      annotations:
+        checksum/configuration: {{ include (print $.Template.BasePath "/settings.yaml") . | sha256sum }}
     spec:
       {{ if .Values.deployment.hostNetwork }}
       hostNetwork: true
