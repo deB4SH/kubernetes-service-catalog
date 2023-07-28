@@ -1,0 +1,10 @@
+mariadb-operator:
+  logLevel: INFO
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
