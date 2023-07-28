@@ -1,0 +1,5 @@
+apiVersion: v2
+name: mariadb-operator-db
+version: 1.0.0
+description: This Chart deploys mariadb-operator-db.
+dependencies: []

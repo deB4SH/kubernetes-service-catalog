@@ -1,0 +1,55 @@
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb
+spec:
+  rootPasswordSecretKeyRef:
+    name: mariadb-credentials
+    key: root-password
+
+  database: {{ .Values.mariadb.database }}
+  username: {{ .Values.mariadb.database }}
+  passwordSecretKeyRef:
+    name: mariadb-credentials
+    key: password
+  
+  image:
+    repository: mariadb
+    tag: {{ .Values.mariadb.image.tag }}
+    pullPolicy: IfNotPresent
+
+  port: 3306
+
+  volumeClaimTemplate:
+    storageClassName: {{ .Values.mariadb.volume.storageClassName }}
+    resources:
+      requests:
+        storage: {{ .Values.mariadb.volume.size }}Gi
+    accessModes:
+      - ReadWriteOnce
+
+  resources:
+    requests:
+      cpu: {{ .Values.mariadb.resources.requests.cpu }}m
+      memory: {{ .Values.mariadb.resources.requests.memory }}Mi
+    limits:
+      cpu: {{ .Values.mariadb.resources.limits.cpu }}m
+      memory: {{ .Values.mariadb.resources.limits.memory }}Mi
+
+  metrics:
+    exporter:
+      image:
+        repository: prom/mysqld-exporter
+        tag: "v0.14.0"
+        pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 300m
+          memory: 512Mi
+    serviceMonitor:
+      prometheusRelease: kube-prometheus-stack
+      interval: 10s
+      scrapeTimeout: 10s
