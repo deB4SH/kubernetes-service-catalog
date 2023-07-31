@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{lower .Release.Name}}-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.issuer }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    ingress.kubernetes.io/ssl-force-host: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+    - host: {{ .Values.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{lower .Release.Name}}-clusterip
+                port:
+                  number: 2342

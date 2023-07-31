@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ lower .Release.name}}
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: {{ lower .Release.name}}
+  template:
+    metadata:
+      labels:
+        app: {{ lower .Release.name}}
+      name: {{ lower .Release.name}}
+    spec:
+      containers:
+        - image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: IfNotPresent
+          name: {{ lower .Release.name}}
+          {{ if .Values.deployment.resources.enabled}}
+          resources:
+            limits:
+              cpu: "{{ .Values.resources.limits.cpu}}"m
+              memory: "{{ .Values.resources.limits.memory}}"Mi
+            requests:
+              cpu: "{{ .Values.resources.requests.cpu}}"m
+              memory: "{{ .Values.resources.requests.memory}}"Mi
+          {{end}}
+          envFrom:
+            - configMapRef:
+                name: {{ lower .Release.name}}-environment
+            - secretRef:
+                name: {{ lower .Release.name}}-secret
+          ports:
+            - containerPort: 2342
+              name: http
+          volumeMounts:
+            {{- range .Values.pvc -}} {{ printf "\n" }}
+            - name: {{lower $.Release.Name}}-{{.name}}
+              mountPath: {{.mountPoint}}
+              {{if .isReadOnly}}
+              readOnly: {{.isReadOnly}} {{end}}
+            {{end}}
+      volumes:
+        {{- range .Values.pvc -}} {{ printf "\n" }}
+        - name: {{lower $.Release.Name}}-{{.name}}
+          persistentVolumeClaim:
+            claimName: {{lower $.Release.Name}}-{{.name}}
+        {{end}}

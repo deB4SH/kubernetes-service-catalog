@@ -1,0 +1,51 @@
+deployment:
+  sleepStart: false
+  image:
+    location: "photoprism/photoprism"
+    tag: "221117-jammy"
+  strategy:
+    type: Recreate
+  nodeaffinity:
+    enabled: false
+    node: ""
+  resources:
+    enabled: true
+    limits:
+      cpu: 1000 #if enabled please modify
+      memory: 3000 #if enabled please modify
+    requests:
+      cpu: 500 #if enabled please modify
+      memory: 3000 #if enabled please modify
+
+environment:
+  photoprismSiteTitle: "overlay_me"
+  photoprismSiteCaption: "overlay_me"
+  photoprismSiteDescription: "overlay_me"
+  photoprismSiteAuthor: "overlay_me"
+  photoprismSiteUrl: "overlay_me"
+  photoprismHttpCompression: "gzip"
+  photoprismDatabaseDriver: "mysql"
+  photoprismDatabaseServer: "127.0.0.1:3306"
+  photoprismDatabaseName: "photoprism"
+  photoprismDatabaseUser: "photoprism"
+  photoprismDatabasePassword: "photoprism"
+  photoprismHttpHost: "0.0.0.0"
+  photoprismHttpPort: "2342"
+  photoprismOriginalsPath: "/tmp/overlay_me"
+  photoprismPublic: "false"
+  photoprismStoragePath: "/smb/storage"
+  photoprismOriginalsLimit:  "4000"
+  photoprismReadonly: "true"
+  photoprismAuthMode: "password"
+  photoprismAdminUser: "overlay_me"
+  photoprismAdminPassword: "overlay_me"
+
+pvc: []
+
+ingress:
+  hostname: photoprism.lan
+  issuer: selfsigned-ca-issuer
+  ingressClass: traefik
+
+service:
+  loadbalancerIp: "127.0.0.1"
