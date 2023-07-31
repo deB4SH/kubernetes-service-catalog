@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ lower .Release.name}}
+  name: {{ lower .Release.Name}}
 spec:
   strategy:
     type: Recreate
@@ -9,31 +9,31 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: {{ lower .Release.name}}
+      app: {{ lower .Release.Name}}
   template:
     metadata:
       labels:
-        app: {{ lower .Release.name}}
-      name: {{ lower .Release.name}}
+        app: {{ lower .Release.Name}}
+      name: {{ lower .Release.Name}}
     spec:
       containers:
         - image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
           imagePullPolicy: IfNotPresent
-          name: {{ lower .Release.name}}
+          name: {{ lower .Release.Name}}
           {{ if .Values.deployment.resources.enabled}}
           resources:
             limits:
-              cpu: "{{ .Values.resources.limits.cpu}}"m
-              memory: "{{ .Values.resources.limits.memory}}"Mi
+              cpu: {{ .Values.deployment.resources.limits.cpu}}m
+              memory: {{ .Values.deployment.resources.limits.memory}}Mi
             requests:
-              cpu: "{{ .Values.resources.requests.cpu}}"m
-              memory: "{{ .Values.resources.requests.memory}}"Mi
+              cpu: {{ .Values.deployment.resources.requests.cpu}}m
+              memory: {{ .Values.deployment.resources.requests.memory}}Mi
           {{end}}
           envFrom:
             - configMapRef:
-                name: {{ lower .Release.name}}-environment
+                name: {{ lower .Release.Name}}-environment
             - secretRef:
-                name: {{ lower .Release.name}}-secret
+                name: {{ lower .Release.Name}}-secret
           ports:
             - containerPort: 2342
               name: http

@@ -5,11 +5,11 @@ deployment:
   resources:
     enabled: true
     limits:
-      cpu: 1000 #if enabled please modify
-      memory: 3000 #if enabled please modify
+      cpu: 1000
+      memory: 3000
     requests:
-      cpu: 500 #if enabled please modify
-      memory: 3000 #if enabled please modify
+      cpu: 500
+      memory: 3000
 
 environment:
   photoprismSiteTitle: "overlay_me"
@@ -34,7 +34,23 @@ environment:
   photoprismAdminUser: "overlay_me"
   photoprismAdminPassword: "overlay_me"
 
-pvc: []
+pvc: 
+  - name: configuration
+    isSmb: false
+    accessMode: ReadWriteOnce
+    storageClass: 
+    size: 1
+    mountPoint: /smb/storage
+    isReadOnly: false
+  - name: dvr
+    isSmb: true
+    smbSource: "//127.0.0.1/photography"
+    smbUsername: "overlayme"
+    smbPassword: "overlayme"
+    accessMode: ReadWriteOnce
+    size: 200
+    mountPoint: /dvr
+    isReadOnly: false
 
 ingress:
   hostname: photoprism.lan

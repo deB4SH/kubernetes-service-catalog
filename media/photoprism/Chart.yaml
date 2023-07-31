@@ -1,4 +1,4 @@
 apiVersion: v2
-name: jellyfin
+name: photoprism
 version: 1.0.0
-description: This Chart deploys jellyfin.
+description: This Chart deploys photoprism.
