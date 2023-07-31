@@ -1,13 +1,7 @@
 deployment:
-  sleepStart: false
   image:
     location: "photoprism/photoprism"
     tag: "221117-jammy"
-  strategy:
-    type: Recreate
-  nodeaffinity:
-    enabled: false
-    node: ""
   resources:
     enabled: true
     limits:
