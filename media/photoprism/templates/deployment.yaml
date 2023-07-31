@@ -14,6 +14,9 @@ spec:
     metadata:
       labels:
         app: {{ lower .Release.Name}}
+      annotations:
+        checksum/configuration: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       name: {{ lower .Release.Name}}
     spec:
       containers:
