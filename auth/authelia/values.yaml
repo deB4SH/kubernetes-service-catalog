@@ -24,4 +24,9 @@ authelia:
       enabled: true
       serviceMonitor:
         enabled: true
-  
+  session:
+    storage:
+      local:
+        enabled: true
+      postgres:
+        enabled: false
