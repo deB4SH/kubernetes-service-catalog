@@ -5,7 +5,7 @@ metadata:
   labels:
     app: kanboard
 spec:
-  replicas: 1
+  replicas: {{ .Values.deployment.replicaCount }}
   revisionHistoryLimit: 3
   progressDeadlineSeconds: 600
   strategy:
