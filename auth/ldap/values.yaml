@@ -1,7 +1,7 @@
 deployment:
   image:
     location: ghcr.io/deb4sh/ldap-homelab
-    tag: sha-ed2cd27
+    tag: sha-897b6ac 
   resources:
     enabled: false
     requests:
@@ -20,6 +20,21 @@ configuration:
     # - cn: "testgroup"
     #   gidNumber: "2000"
   userConfiguration: []
+    # - cn: "test1"
+    #   uidNumber: "1000"
+    #   gidNumber: "1000"
+    #   givenName: "Test"
+    #   sn: "User"
+    #   mail: "test@user.tld"
+    #   userPassword: "{SSHA}h4Pu"
+    # - cn: "test2"
+    #   uidNumber: "1001"
+    #   gidNumber: "1001"
+    #   givenName: "Random"
+    #   sn: "Dude"
+    #   mail: "random@dude.tld"
+    #   userPassword: "{SSHA}1234nopasswd"
+  serviceUserConfiguration: []
     # - cn: "test1"
     #   uidNumber: "1000"
     #   gidNumber: "1000"

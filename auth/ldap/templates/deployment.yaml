@@ -18,6 +18,7 @@ spec:
         app: ldap
       annotations:
         checksum/users: {{ include (print $.Template.BasePath "/configuration/users.yaml") . | sha256sum }}
+        checksum/serviceusers: {{ include (print $.Template.BasePath "/configuration/serviceuser.yaml") . | sha256sum }}
         checksum/groups: {{ include (print $.Template.BasePath "/configuration/groups.yaml") . | sha256sum }}
         checksum/userMemberOf: {{ include (print $.Template.BasePath "/configuration/userMemberOf.yaml") . | sha256sum }}
         checksum/groupMemberUid: {{ include (print $.Template.BasePath "/configuration/groupMemberUid.yaml") . | sha256sum }}
@@ -42,7 +43,9 @@ spec:
               containerPort: 636
           volumeMounts:
             - name: users
-              mountPath: /root/02_users
+              mountPath: /root/02_users/users
+            - name: serviceusers
+              mountPath: /root/02_users/serviceusers
             - name: groups
               mountPath: /root/01_groups
             - name: usermemberof
@@ -53,6 +56,9 @@ spec:
         - name: users
           configMap:
             name: ldap-users
+        - name: serviceusers
+          configMap:
+            name: ldap-service-users
         - name: groups
           configMap:
             name: ldap-groups
