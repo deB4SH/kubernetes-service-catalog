@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: kanboard-url-rewrite
 data:
-  ENABLE_URL_REWRITE: {{.Values.configuration.urlRewrite.enable}}
+  ENABLE_URL_REWRITE: "{{.Values.configuration.urlRewrite.enable}}"

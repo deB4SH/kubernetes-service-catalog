@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: kanboard-secure-http-headers
 data:
-  ENABLE_HSTS: {{.Values.configuration.secureHttpHeaders.enableHsts}}
-  ENABLE_XFRAME: {{.Values.configuration.secureHttpHeaders.enableXframe}}
+  ENABLE_HSTS: "{{.Values.configuration.secureHttpHeaders.enableHsts}}"
+  ENABLE_XFRAME: "{{.Values.configuration.secureHttpHeaders.enableXframe}}"

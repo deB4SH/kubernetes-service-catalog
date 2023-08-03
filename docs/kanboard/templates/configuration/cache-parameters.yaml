@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: kanboard-cache-parameters
 data:
-  CACHE_DRIVER: {{.Values.configuration.cacheParameters.driver}}
-  CACHE_DIR: {{.Values.configuration.cacheParameters.cacheDir}}
+  CACHE_DRIVER: "{{.Values.configuration.cacheParameters.driver}}"
+  CACHE_DIR: "{{.Values.configuration.cacheParameters.cacheDir}}"

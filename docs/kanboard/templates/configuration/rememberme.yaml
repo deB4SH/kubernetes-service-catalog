@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: kanboard-rememberme
 data:
-  REMEMBER_ME_AUTH: {{.Values.configuration.rememberMe.auth}}
+  REMEMBER_ME_AUTH: "{{.Values.configuration.rememberMe.auth}}"

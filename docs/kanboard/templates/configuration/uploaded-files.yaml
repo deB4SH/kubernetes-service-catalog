@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: kanboard-uploaded-files
 data:
-  FILES_DIR: {{.Values.configuration.uploadedFiles.dir}}
+  FILES_DIR: "{{.Values.configuration.uploadedFiles.dir}}"
