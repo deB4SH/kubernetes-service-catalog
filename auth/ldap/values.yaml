@@ -1,7 +1,7 @@
 deployment:
   image:
     location: ghcr.io/deb4sh/ldap-homelab
-    tag: sha-897b6ac 
+    tag: sha-8b7c3ee
   resources:
     enabled: false
     requests:
