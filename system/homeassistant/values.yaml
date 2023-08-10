@@ -2,6 +2,9 @@ deployment:
   sleepStart: false
   hostNetwork: true
   securityPrivilegeEscalation: false
+  image: 
+    location: homeassistant/home-assistant
+    tag: 2023.8
 
 pvc:
   data:

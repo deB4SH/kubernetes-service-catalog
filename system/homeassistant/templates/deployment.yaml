@@ -26,7 +26,7 @@ spec:
       {{ end }}
       containers:
         - name: homeassistant
-          image: homeassistant/home-assistant:2023.7
+          image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
           imagePullPolicy: IfNotPresent
           {{ if .Values.deployment.sleepStart }}
           # Just spin & wait forever
