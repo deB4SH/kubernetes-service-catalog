@@ -1,0 +1,32 @@
+nfs-subdir-external-provisioner:
+  replicaCount: 1
+  strategyType: Recreate
+
+  nfs:
+    server:
+    path: /nfs-storage
+    volumeName: nfs-subdir-external-provisioner-root
+    reclaimPolicy: Retain
+
+  storageClass:
+    create: true
+    provisionerName: overlay_me
+    defaultClass: false
+    name: overlay_me
+    allowVolumeExpansion: true
+    reclaimPolicy: Retain
+    archiveOnDelete: true
+    onDelete: retain
+
+  leaderElection:
+    enabled: true
+
+  rbac:
+    create: true
+
+  podSecurityPolicy:
+    enabled: false
+
+  serviceAccount:
+    create: true
+    name:
