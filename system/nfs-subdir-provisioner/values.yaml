@@ -16,7 +16,6 @@ nfs-subdir-external-provisioner:
     allowVolumeExpansion: true
     reclaimPolicy: Retain
     archiveOnDelete: true
-    onDelete: retain
 
   leaderElection:
     enabled: true
