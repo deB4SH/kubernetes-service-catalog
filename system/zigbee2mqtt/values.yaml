@@ -10,6 +10,8 @@ deployment:
     requests:
       cpu: 250
       memory: 256
+  nodeaffinity:
+    node: overlay_me
   volume:
     usb: /dev/serial/by-id/OVERLAY_ME
 

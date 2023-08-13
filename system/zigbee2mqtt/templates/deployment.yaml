@@ -18,6 +18,15 @@ spec:
       labels:
         app: {{.Release.Name}}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - {{ .Values.deployment.nodeaffinity.node}}
       containers:
         - name: {{.Release.Name}}
           image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
