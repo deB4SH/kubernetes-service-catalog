@@ -3,5 +3,4 @@ kind: ConfigMap
 metadata:
   name: matrix-configuration-homeserver
 data:
-  homeserver.yaml: |
-    {{.Values.homeserverConfiguration | toYaml | indent 1 }}
+  homeserver.yaml: {{- .Values.homeserverConfiguration | toYaml | indent 1 }}
