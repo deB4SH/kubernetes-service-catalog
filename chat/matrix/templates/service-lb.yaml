@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: matrix-lb
+spec:
+  selector:
+    app: matrix
+  ports:
+    - name: matrix
+      port: 8008
+      targetPort: 8008
+    - name: metrics
+      port: 9000
+      targetPort: 9000
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer

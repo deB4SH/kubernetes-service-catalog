@@ -1,0 +1,33 @@
+deployment:
+  sleepStart: false
+  image:
+    location: matrixdotorg/synapse
+    tag: v1.87.0
+  resources:
+    limits:
+      cpu: 500
+      memory: 1000
+    requests:
+      cpu: 100
+      memory: 500 
+
+pvc:
+  data:
+    accessMode: ReadWriteMany
+    storageClass: #only applied when set
+    storageSize: 5 #size in Gi
+
+service: 
+  ip: 127.0.0.1
+
+ingress:
+  name: hedgedoc.local
+
+configuration:
+  serverName: "overlay_me"
+  reportStats: "true"
+  configPath: "/config/homeserver.yaml"
+  unsafeLocale: "true"
+
+homeserverConfiguration: |-
+  "overlay_me"
