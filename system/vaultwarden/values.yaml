@@ -22,9 +22,6 @@ pvc:
 service: 
   ip: 127.0.0.1
 
-ingress:
-  name: hedgedoc.local
-
 configuration:
   adminToken: "overlay_me"
   domain: "overlay_me"
