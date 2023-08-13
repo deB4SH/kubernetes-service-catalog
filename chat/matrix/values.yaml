@@ -20,9 +20,6 @@ pvc:
 service: 
   ip: 127.0.0.1
 
-ingress:
-  name: hedgedoc.local
-
 configuration:
   serverName: "overlay_me"
   reportStats: "true"
