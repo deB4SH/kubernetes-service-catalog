@@ -4,7 +4,7 @@ metadata:
   name: {{.Release.Name}}-configuration
 data:
   ADMIN_TOKEN: "{{.Values.configuration.adminToken}}"
-  DOMAIN: "{{.Values.configuration.domain}"
+  DOMAIN: "{{.Values.configuration.domain}}"
   INVITATIONS_ALLOWED: "{{.Values.configuration.invitationsAllowed}}"
   SIGNUPS_ALLOWED: "{{.Values.configuration.signupsAllowed}}"
   SIGNUPS_DOMAINS_WHITELIST: "{{.Values.configuration.signupsDomainsWhitelist}}"
