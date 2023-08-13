@@ -29,11 +29,11 @@ configuration:
   singupsAllowed: "true"
   signupsDomainsWhitelist: "google.com"
   signupsVerify: "true"
-
-secret:
   smtpFrom: "overlay_me"
   smtpHost: "overlay_me"
   smtpPort: "587"
   smtpSsl: "true"
+
+secret:
   smtpUsername: "overlay_me"
   smtpPassword: "overlay_me"

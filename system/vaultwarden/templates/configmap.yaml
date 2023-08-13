@@ -9,3 +9,7 @@ data:
   SIGNUPS_ALLOWED: "{{.Values.configuration.signupsAllowed}}"
   SIGNUPS_DOMAINS_WHITELIST: "{{.Values.configuration.signupsDomainsWhitelist}}"
   SIGNUPS_VERIFY: "{{.Values.configuration.signupsVerify}}"
+  SMTP_FROM: "{{.Values.configuration.smtpFrom}}"
+  SMTP_HOST: "{{.Values.configuration.smtpHost}}"
+  SMTP_PORT: "{{.Values.configuration.smtpPort}}"
+  SMTP_SSL: "{{.Values.configuration.smtpSsl}}"
