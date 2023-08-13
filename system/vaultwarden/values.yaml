@@ -1,0 +1,42 @@
+deployment:
+  sleepStart: false
+  image:
+    location: vaultwarden/server
+    tag: 1.27.0
+  resources:
+    limits:
+      cpu: 300
+      memory: 1500
+    requests:
+      cpu: 100
+      memory: 1000
+
+pvc:
+  data:
+    accessMode: ReadWriteMany
+    #only applied when set
+    storageClass:
+    #size in Gi
+    storageSize: 5
+
+service: 
+  ip: 127.0.0.1
+
+ingress:
+  name: hedgedoc.local
+
+configuration:
+  adminToken: "overlay_me"
+  domain: "overlay_me"
+  invitationsAllowed: "true"
+  singupsAllowed: "true"
+  signupsDomainsWhitelist: "google.com"
+  signupsVerify: "true"
+
+secret:
+  smtpFrom: "overlay_me"
+  smtpHost: "overlay_me"
+  smtpPort: "587"
+  smtpSsl: "true"
+  smtpUsername: "overlay_me"
+  smtpPassword: "overlay_me"
