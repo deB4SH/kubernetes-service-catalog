@@ -4,4 +4,4 @@ metadata:
   name: matrix-configuration-homeserver
 data:
   homeserver.yaml: |-
-    {{.Values.homeserverConfiguration}}
+    {{.Values.homeserverConfiguration | toYaml | indent 1 }}
