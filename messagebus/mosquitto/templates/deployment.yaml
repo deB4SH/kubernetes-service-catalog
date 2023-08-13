@@ -38,8 +38,8 @@ spec:
               cpu: {{ .Values.deployment.resources.requests.cpu }}m
               memory: {{ .Values.deployment.resources.requests.memory }}M
           ports:
-            - containerPort: 80
-              name: http
+            - name: mqtt
+              containerPort: 1883
               protocol: TCP
           volumeMounts:
             - name: configinc
