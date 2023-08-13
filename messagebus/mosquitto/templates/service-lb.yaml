@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{.Release.Name}}-lb
+spec:
+  selector:
+    app: {{.Release.Name}}
+  ports:
+    - port: 1883
+      targetPort: mqtt
+      protocol: TCP
+      name: mqtt
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer

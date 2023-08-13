@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}
+  labels:
+    app: {{.Release.Name}}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  progressDeadlineSeconds: 600
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}
+    spec:
+      containers:
+        - name: {{.Release.Name}}
+          image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: IfNotPresent
+          {{ if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
+          env:
+            - name: TZ
+              value: Europe/Berlin
+          resources:
+            limits:
+              cpu: {{ .Values.deployment.resources.limits.cpu }}m
+              memory: {{ .Values.deployment.resources.limits.memory }}M
+            requests:
+              cpu: {{ .Values.deployment.resources.requests.cpu }}m
+              memory: {{ .Values.deployment.resources.requests.memory }}M
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          volumeMounts:
+            - name: configinc
+              mountPath: /mosquitto/configinc
+            - name: data
+              mountPath: /mosquitto/data
+            # config-map configuration
+            - name: mosquitto-config
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+      volumes:
+        - name: mosquitto-config
+          configMap:
+            name: {{.Release.Name}}-configuration
+        - name: configinc
+          persistentVolumeClaim:
+            claimName: {{.Release.Name}}-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{.Release.Name}}-data
+        
