@@ -1,0 +1,28 @@
+deployment:
+  sleepStart: false
+  image:
+    location: koenkk/zigbee2mqtt
+    tag: 1.30.3
+  resources:
+    limits:
+      cpu: 500
+      memory: 512
+    requests:
+      cpu: 250
+      memory: 256
+  volume:
+    usb: /dev/serial/by-id/OVERLAY_ME
+
+pvc:
+  data:
+    accessMode: ReadWriteMany
+    #only applied when set
+    storageClass:
+    #size in Gi
+    storageSize: 5
+
+service: 
+  ip: 127.0.0.1
+
+configuration: |-    
+  overlay_me
