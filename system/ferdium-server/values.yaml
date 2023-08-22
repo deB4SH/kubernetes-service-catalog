@@ -1,0 +1,41 @@
+deployment:
+  sleepStart: false
+  image: 
+    location: ghcr.io/ferdium/ferdium-server
+    tag: 1.3.12
+
+pvc:
+  data:
+    storageClass: #only applied when set
+    storageSize: 1 #size in Gi
+
+service: 
+  ip: 127.0.0.1
+
+ingress:
+  - name: ferdium-server.local
+  - name: feridum.local
+
+
+configuration:
+  nodeEnv: development
+  appUrl: "ferdium-server.local"
+  dbConnection: "pg"
+  dbHost: "localhost"
+  dbPort: "5432"
+  dbUser: "user"
+  dbPassword: "password"
+  dbDatabase: "ferdium"
+  dbSsl: "true"
+  mailConnection: "smtp"
+  smtpHost: "localhost"
+  smtpPort: "2525"
+  mailSsl: "false"
+  mailUsername: "username"
+  mailPassword: "password"
+  mailSender: "noreply@local.host"
+  isCreationEnabled: "true"
+  isDashboardEnabled: "true"
+  isRegistrationEnabled: "true"
+  connectWithFranz: "false"
+  

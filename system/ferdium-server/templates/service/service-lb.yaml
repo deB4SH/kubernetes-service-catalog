@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{.Release.Name}}-lb
+spec:
+  selector:
+    app: {{.Release.Name}}
+  ports:
+    - name: http
+      port: 3333
+      targetPort: 3333
+      protocol: TCP
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer

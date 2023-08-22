@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Release.Name}}-configuration
+data:
+  NODE_ENV: {{ .Values.configuration.nodeEnv }}
+  APP_URL: {{ .Values.configuration.appUrl }}
+  DB_CONNECTION: {{ .Values.configuration.dbConnection }}
+  DB_HOST: "{{ .Values.configuration.dbHost }}"
+  DB_PORT: "{{ .Values.configuration.dbPort }}"
+  DB_USER: {{ .Values.configuration.dbUser }}
+  DB_PASSWORD: {{ .Values.configuration.dbPassword }}
+  DB_DATABASE: {{ .Values.configuration.dbDatabase }}
+  DB_SSL: "{{ .Values.configuration.dbSsl }}"
+  MAIL_CONNECTION: {{ .Values.configuration.mailConnection }}
+  SMTP_HOST: "{{ .Values.configuration.smtpHost }}"
+  SMTP_PORT: "{{ .Values.configuration.smtpPort }}"
+  MAIL_SSL: "{{ .Values.configuration.mailSsl }}"
+  MAIL_USERNAME: {{ .Values.configuration.mailUsername }}
+  MAIL_PASSWORD: {{ .Values.configuration.mailPassword }}
+  MAIL_SENDER: {{ .Values.configuration.mailSender }}
+  IS_CREATION_ENABLED: "{{ .Values.configuration.isCreationEnabled }}"
+  IS_DASHBOARD_ENABLED: "{{ .Values.configuration.isDashboardEnabled }}"
+  IS_REGISTRATION_ENABLED: "{{ .Values.configuration.isRegistrationEnabled }}"
+  CONNECT_WITH_FRANZ: "{{ .Values.configuration.connectWithFranz }}"
+  DATA_DIR: /data
+  PUID: "1000"
+  PGID: "1000"
