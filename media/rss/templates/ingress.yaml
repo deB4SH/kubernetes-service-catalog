@@ -10,6 +10,10 @@ metadata:
     ingress.kubernetes.io/ssl-force-host: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  tls:
+    - hosts:
+        - {{ .Values.ingress.hostname }}
+      secretName: {{ .Values.ingress.hostname }}
   rules:
     - host: {{ .Values.ingress.hostname }}
       http:
