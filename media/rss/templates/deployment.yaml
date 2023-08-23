@@ -44,7 +44,7 @@ spec:
           volumeMounts:
             - name: storage
               mountPath: /app/storage
-      initConmtainers:
+      initContainers:
         - name: copy
           image: alpine:latest
           volumeMounts:
@@ -52,7 +52,7 @@ spec:
               mountPath: /tmp/storage
             - name: feeds
               mountPath: /tmp/feed/
-          command: ["/bin/sh", "-c"]
+          command: [/bin/sh, -c]
           args:
             - |
               echo "copy feeds.txt from configmap to storage pvc"
