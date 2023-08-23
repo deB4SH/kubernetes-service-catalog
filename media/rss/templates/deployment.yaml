@@ -16,15 +16,6 @@ spec:
         app: {{lower .Release.Name}}
       name: {{lower .Release.Name}}
     spec:
-      initConmtainers:
-        - name: copy
-          image: busybox:1.28
-          command: ["/bin/sh", "-c", "cp /tmp/feed/feeds.txt /tmp/storage/feeds.txt/"]
-          volumeMounts:
-            - name: storage
-              mountPath: /tmp/storage
-            - name: feeds
-              mountPath: /tmp/feed/
       containers:
         - image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
           imagePullPolicy: IfNotPresent
@@ -53,6 +44,19 @@ spec:
           volumeMounts:
             - name: storage
               mountPath: /app/storage
+      initConmtainers:
+        - name: copy
+          image: alpine:latest
+          volumeMounts:
+            - name: storage
+              mountPath: /tmp/storage
+            - name: feeds
+              mountPath: /tmp/feed/
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "copy feeds.txt from configmap to storage pvc"
+              cp /tmp/feed/feeds.txt /tmp/storage/feeds.txt
       volumes:
         - name: storage
           persistentVolumeClaim:
