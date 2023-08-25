@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: authelia-lb
 spec:
-  selector: {{- include "authelia.authelia.matchLabels" . | nindent 4 }}
+  selector: {{- include "authelia.matchLabels" . | nindent 4 }}
   ports:
     - name: http
       port: 80
