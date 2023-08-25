@@ -1,3 +1,6 @@
+service: 
+  ip: 127.0.0.1
+
 authelia:
   rbac:
     enabled: true

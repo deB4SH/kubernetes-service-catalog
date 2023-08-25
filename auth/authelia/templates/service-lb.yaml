@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: authelia-lb
+spec:
+  selector: {{- include "authelia.authelia.matchLabels" . | nindent 4 }}
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer
