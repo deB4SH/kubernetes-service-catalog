@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: matrixdotorg/synapse
-    tag: v1.87.0
+    tag: v1.92.3
   resources:
     limits:
       cpu: 500
