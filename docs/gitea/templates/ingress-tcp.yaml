@@ -11,9 +11,5 @@ spec:
         - name: gitea-clusterip
           port: 60000
   tls:
-    - hosts:
-        {{- range .Values.ingress }}
-        - {{ .name }}
-        {{- end}}
-      secretName: ssh-gitea
+    secretName: ssh-gitea
     
