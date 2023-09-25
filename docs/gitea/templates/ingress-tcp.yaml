@@ -10,6 +10,3 @@ spec:
       services:
         - name: gitea-clusterip
           port: 60000
-  tls:
-    secretName: ssh-gitea
-    
