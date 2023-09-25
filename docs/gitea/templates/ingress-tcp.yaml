@@ -10,3 +10,6 @@ spec:
       services:
         - name: gitea-clusterip
           port: 60000
+  tls:
+    passthrough: true
+    secretName: git-tcp-ingress
