@@ -11,5 +11,8 @@ spec:
         - name: gitea-clusterip
           port: 60000
   tls:
-    passthrough: true
-    secretName: git-tcp-ingress
+    {{- range .Values.ingress }}
+    - hosts:
+        - {{ .name }}
+      secretName: ssh-{{ .name }}
+    {{- end -}}
