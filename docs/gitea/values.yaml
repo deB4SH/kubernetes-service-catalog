@@ -19,7 +19,8 @@ pvc:
     storageSize: 5
 
 ingress:
-  name: gitea.local
+  - name: gitea.local
+  - name: gitea.lan
 
 configuration:
   databaseType: "postgres"
