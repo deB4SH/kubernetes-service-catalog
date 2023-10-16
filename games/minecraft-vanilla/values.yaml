@@ -1,0 +1,210 @@
+minecraft:
+  # ref: https://hub.docker.com/r/itzg/minecraft-server/
+  image:
+    repository: itzg/minecraft-server
+    tag: latest
+    pullPolicy: Always
+
+  replicaCount: 1
+
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 500m
+
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    runAsNonRoot: true
+    fsGroup: 2000
+    seccompProfile:
+      type: RuntimeDefault
+
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+
+  livenessProbe:
+    command:
+      - mc-health
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    failureThreshold: 20
+    successThreshold: 1
+    timeoutSeconds: 1
+  readinessProbe:
+    command:
+      - mc-health
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    failureThreshold: 20
+    successThreshold: 1
+    timeoutSeconds: 1
+  startupProbe:
+    command:
+      - mc-health
+    enabled: false
+    failureThreshold: 30
+    periodSeconds: 10
+
+  minecraftServer:
+    eula: "TRUE"
+    version: "LATEST"
+    type: "VANILLA"
+    difficulty: hard
+    whitelist:
+    ops:
+    icon:
+    maxPlayers: 20
+    maxWorldSize: 10000
+    allowNether: default
+    announcePlayerAchievements: default
+    enableCommandBlock: default
+    forcegameMode: default
+    generateStructures: default
+    hardcore: default
+    maxBuildHeight: 256
+    maxTickTime: 60000
+    spawnAnimals: default
+    spawnMonsters: default
+    spawnNPCs: default
+    spawnProtection: 16
+    viewDistance: 16
+    levelSeed:
+    gameMode: survival
+    motd: "Welcome to Minecraft on Kubernetes!"
+    pvp: default
+    levelType: DEFAULT
+    generatorSettings:
+    worldSaveName: world
+    downloadWorldUrl:
+    forceReDownload: true
+    downloadModpackUrl:
+    removeOldMods: false
+    vanillaTweaksShareCodes: []
+    resourcePackUrl:
+    resourcePackSha:
+    resourcePackEnforce: false
+    onlineMode: default
+    enforceSecureProfile: default
+    memory: 1024M
+    jvmOpts: ""
+    jvmXXOpts: ""
+    overrideServerProperties: false
+    # DEPRECATED: use top-level rconServiceAnnotations instead
+    serviceAnnotations: {}
+    serviceType: ClusterIP
+    ## Set the port used if the serviceType is NodePort
+    nodePort:
+    # Set the external port of the service, usefull when using the LoadBalancer service type
+    servicePort: 25565
+    clusterIP:
+    loadBalancerIP:
+    # loadBalancerSourceRanges: []
+    ## Set the externalTrafficPolicy in the Service to either Cluster or Local
+    # externalTrafficPolicy: Cluster
+    externalIPs:
+
+    rcon:
+      # If you enable this, make SURE to change your password below.
+      enabled: true
+      # By default, the container will generate a random password at startup
+      # to ensure internal RCON tooling, including a backup container,
+      # can be used, but the password is secure.
+      withGeneratedPassword: false
+      port: 25575
+      password: "CHANGEME!"
+      existingSecret:
+      secretKey: rcon-password
+      serviceType: ClusterIP
+      ## Set the external port if the rcon serviceType is NodePort
+      nodePort:
+      clusterIP:
+      loadBalancerIP:
+      # loadBalancerSourceRanges: []
+      ## Set the externalTrafficPolicy in the Service to either Cluster or Local
+      # externalTrafficPolicy: Cluster
+
+    extraPorts:
+      []
+      
+    query:
+      # If you enable this, your server will be "published" to Gamespy
+      enabled: false
+      port: 25565
+
+
+  persistence:
+    storageClass: "nfs"
+    dataDir:
+      enabled: true
+      Size: 50Gi
+
+  podAnnotations: {}
+  podLabels: {}
+
+  deploymentAnnotations: {}
+  deploymentLabels: {}
+
+  serviceAnnotations: {}
+  serviceLabels: {}
+
+  rconServiceAnnotations: {}
+  rconServiceLabels: {}
+
+  # PLEASE NOTE! rcon must be enabled above!  It does NOT require a nodePort or loadBalancerIP
+  mcbackup:
+    enabled: true
+
+    image:
+      repository: itzg/mc-backup
+      tag: latest
+      pullPolicy: IfNotPresent
+
+    initialDelay: 2m
+
+    backupInterval: 24h
+
+    pauseIfNoPlayers: "true"
+
+    pruneBackupsDays: 7
+
+    rconRetries: 5
+    rconRetryInterval: 10s
+
+    excludes: "*.jar,cache,logs"
+
+    backupMethod: tar
+    destDir: /backups
+    linkLatest: "false"
+    compressMethod: "gzip"
+    zstdParameters: "-3 --long=25 --single-thread"
+    rcloneRemote:
+    rcloneDestDir:
+    rcloneCompressMethod: gzip
+
+    resticRepository:
+    resticAdditionalTags: "mc_backups"
+    pruneResticRetention: "--keep-daily 7 --keep-weekly 5 --keep-monthly 12 --keep-yearly 75"
+
+    resticEnvs:
+      []
+
+    extraEnv:
+      {}
+      
+    envFrom: []
+
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+
+    persistence:
+      storageClass: nfs
+      backupDir:
+        enabled: true
+        Size: 100Gi

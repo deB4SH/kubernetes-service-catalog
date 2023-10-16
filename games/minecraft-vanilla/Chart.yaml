@@ -1,0 +1,9 @@
+apiVersion: v2
+name: minecraft-vanilla
+version: 1.0.0
+description: This Chart deploys minecraft vanilla.
+dependencies:
+  # https://artifacthub.io/packages/helm/minecraft-server-charts/minecraft
+  - name: minecraft
+    version: 4.11.0
+    repository: https://itzg.github.io/minecraft-server-charts/
