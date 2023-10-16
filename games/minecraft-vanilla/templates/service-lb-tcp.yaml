@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: minecraft-tcp
+  annotations:
+    {{ if .Values.service.metallbAnnotation }}
+    metallb.universe.tf/allow-shared-ip: {{ .Values.service.metallbAnnotationName }}
+    {{ end }}
+spec:
+  selector:
+    app: minecraft-vanilla-minecraft
+  ports:
+    - name: game
+      port: 25565
+      protocol: TCP
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.ip }}
+  type: LoadBalancer

@@ -1,3 +1,7 @@
+service:
+  metallbAnnotation: "overlay_me"
+  ip: "overlay_me"
+
 minecraft:
   # ref: https://hub.docker.com/r/itzg/minecraft-server/
   image:
