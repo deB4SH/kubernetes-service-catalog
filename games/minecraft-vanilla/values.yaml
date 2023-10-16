@@ -130,7 +130,7 @@ minecraft:
 
     extraPorts:
       []
-      
+
     query:
       # If you enable this, your server will be "published" to Gamespy
       enabled: false
@@ -138,7 +138,7 @@ minecraft:
 
 
   persistence:
-    storageClass: "nfs"
+    storageClass: "-"
     dataDir:
       enabled: true
       Size: 50Gi
@@ -204,7 +204,7 @@ minecraft:
         cpu: 500m
 
     persistence:
-      storageClass: nfs
+      storageClass: "-"
       backupDir:
         enabled: true
         Size: 100Gi
