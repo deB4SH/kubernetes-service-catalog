@@ -1,5 +1,6 @@
 service:
-  metallbAnnotation: "overlay_me"
+  metallbAnnotation: false
+  metallbAnnotationName: "overlay_me"
   ip: "overlay_me"
 
 minecraft:
