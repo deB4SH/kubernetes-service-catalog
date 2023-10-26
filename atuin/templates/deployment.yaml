@@ -21,10 +21,10 @@ spec:
         - image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
           name: atuin
           envFrom: 
-            - configMapRef:
-                name: {{.Release.Name}}-configuration
-            - secretMapRef:
-                name: {{.Release.Name}}-secret-configuration
+          - configMapRef:
+              name: {{.Release.Name}}-configuration
+          - secretRef:
+              name: {{.Release.Name}}-secret-configuration
           ports:
             - containerPort: 8888
           args:
