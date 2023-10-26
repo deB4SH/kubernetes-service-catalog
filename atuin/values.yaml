@@ -1,0 +1,22 @@
+configuration:
+  dbUsername: "overlay_me"
+  openRegistration: "true"
+  host: "0.0.0.0"
+
+secret:
+  dbUri: "postgres://atuin:seriously-insecure@localhost/atuin"
+  dbPassword: "seriously-insecure"
+
+deployment:
+  image:
+    location: "ghcr.io/atuinsh/atuin"
+    tag: "17.0.0"
+
+pvc:
+  data:
+    accessMode: ReadWriteOnce
+    storageClass: "overlay me"
+    storageSize: 1Gi
+
+service:
+  loadbalancerIp: "127.0.0.1"
