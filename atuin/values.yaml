@@ -16,7 +16,7 @@ pvc:
   data:
     accessMode: ReadWriteOnce
     storageClass: "overlay me"
-    storageSize: 1Gi
+    storageSize: 1
 
 service:
   loadbalancerIp: "127.0.0.1"
