@@ -38,9 +38,9 @@ spec:
               cpu: 50m
               memory: 500Mi
           volumeMounts:
-            - mountPath: /config
-              name: atuin
+          - mountPath: /config
+            name: data
       volumes:
-        - name: atuin
+        - name: data
           persistentVolumeClaim:
             claimName: {{.Release.Name}}-data
