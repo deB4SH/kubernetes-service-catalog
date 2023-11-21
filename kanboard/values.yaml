@@ -33,7 +33,7 @@ ingress:
   issuer: "selfsigned-ca-issuer"
   ingressClass: "traefik"
   name: kanboard.local
-  additionalAnnotations: {}
+  additionalAnnotations: 
 
 configuration:
   bruteforceProtection:
