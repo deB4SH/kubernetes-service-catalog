@@ -10,7 +10,7 @@ metadata:
     ingress.kubernetes.io/ssl-force-host: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
     {{- range $key, $val := .Values.ingress.additionalAnnotations }}
-      {{ $key }}: "{{ $val }}"
+    {{ $key }}: "{{ $val }}"
     {{- end }}
 spec:
   tls:
