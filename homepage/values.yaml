@@ -1,6 +1,6 @@
 homepage:
   image:
-  repository: ghcr.io/benphelps/homepage
+    repository: ghcr.io/benphelps/homepage
 
   enableRbac: true
 
