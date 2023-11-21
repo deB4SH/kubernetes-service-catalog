@@ -1,0 +1,39 @@
+homepage:
+  image:
+  repository: ghcr.io/benphelps/homepage
+
+  enableRbac: true
+
+  serviceAccount:
+    name: homepage
+    create: true
+
+  controller:
+    strategy: Recreate
+
+  ingress:
+    main:
+      enabled: true
+      labels:
+        gethomepage.dev/enabled: "true"
+      annotations:
+        gethomepage.dev/name: "Homepage"
+        gethomepage.dev/description: "A modern, secure, highly customizable application dashboard."
+        gethomepage.dev/group: "Kubernetes"
+        gethomepage.dev/icon: "homepage.png"
+
+
+  config:
+    kubernetes:
+      mode: cluster
+
+  persistence:
+    logs:
+      enabled: true
+      type: emptyDir
+      mountPath: /app/config/logs
+
+  resources:
+    limits:
+      memory: 200Mi
+      cpu: 200m
