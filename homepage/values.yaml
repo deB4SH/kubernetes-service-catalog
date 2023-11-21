@@ -13,15 +13,7 @@ homepage:
 
   ingress:
     main:
-      enabled: true
-      labels:
-        gethomepage.dev/enabled: "true"
-      annotations:
-        gethomepage.dev/name: "Homepage"
-        gethomepage.dev/description: "A modern, secure, highly customizable application dashboard."
-        gethomepage.dev/group: "Kubernetes"
-        gethomepage.dev/icon: "homepage.png"
-
+      enabled: false
 
   config:
     kubernetes:
