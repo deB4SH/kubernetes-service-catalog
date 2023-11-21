@@ -4,11 +4,11 @@ metadata:
   name: {{.Release.Name}}-ingress
   labels:
     {{- range $key, $val := .Values.ingress.labels }}
-      {{ $key }}: {{ $val }}
+      {{ $key }}: "{{ $val }}"
     {{- end }}
   annotations:
     {{- range $key, $val := .Values.ingress.annotations }}
-      {{ $key }}: {{ $val }}
+      {{ $key }}: "{{ $val }}"
     {{- end }}
 spec:
   tls:
