@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{.Release.Name}}-ingress
+  labels:
+    {{- range $key, $val := .Values.ingress.labels }}
+      {{ $key }}: {{ $val }}
+    {{- end }}
+  annotations:
+    {{- range $key, $val := .Values.ingress.annotations }}
+      {{ $key }}: {{ $val }}
+    {{- end }}
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.ingress.name }}
+      secretName: {{ .Values.ingress.name }}
+  rules:
+    - host: {{ .Values.ingress.name }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{.Release.Name}}-clusterip
+                port:
+                  number: 3000
