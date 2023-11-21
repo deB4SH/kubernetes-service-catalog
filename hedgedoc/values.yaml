@@ -24,6 +24,7 @@ service:
 
 ingress:
   name: hedgedoc.local
+  enableHomepage: false
 
 configuration:
   domain: "overlay-me"

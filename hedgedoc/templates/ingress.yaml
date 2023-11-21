@@ -2,8 +2,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hedgedoc-ingress
+  labels:
+    gethomepage.dev/enabled: "true"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    gethomepage.dev/name: "Hedgedoc"
+    gethomepage.dev/description: "A modern sharable markdown board for collaborative work"
+    gethomepage.dev/group: "Kubernetes"
+    #gethomepage.dev/icon: "homepage.png"
 spec:
   tls:
     - hosts:
