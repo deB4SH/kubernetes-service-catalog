@@ -9,6 +9,9 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: 'true'
     ingress.kubernetes.io/ssl-force-host: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
+    {{- range $key, $val := .Values.ingress.additionalAnnotations }}
+    {{ $key }}: "{{ $val }}"
+    {{- end }}
 spec:
   tls:
     - hosts:

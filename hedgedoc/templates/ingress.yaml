@@ -6,10 +6,9 @@ metadata:
     gethomepage.dev/enabled: "true"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    gethomepage.dev/name: "Hedgedoc"
-    gethomepage.dev/description: "A modern sharable markdown board for collaborative work"
-    gethomepage.dev/group: "Kubernetes"
-    #gethomepage.dev/icon: "homepage.png"
+    {{- range $key, $val := .Values.ingress.additionalAnnotations }}
+    {{ $key }}: "{{ $val }}"
+    {{- end }}
 spec:
   tls:
     - hosts:
