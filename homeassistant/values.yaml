@@ -4,7 +4,7 @@ deployment:
   securityPrivilegeEscalation: false
   image: 
     location: homeassistant/home-assistant
-    tag: 2023.8
+    tag: 2023.11
 
 pvc:
   data:
