@@ -8,6 +8,7 @@ deployment:
   livenessProbe:
     initialDelaySeconds: 60
     periodSeconds: 15
+    timeoutSeconds: 5
   resources:
     limits:
       enabled: false
