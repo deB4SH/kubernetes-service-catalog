@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: "ghcr.io/ssddanbrown/rss"
-    tag: "v1.4.0"
+    tag: "v1.4.2"
   strategy:
     type: Recreate
   livenessProbe:
