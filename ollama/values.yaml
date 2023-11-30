@@ -1,0 +1,25 @@
+deployment:
+  sleepStart: false
+  image:
+    location: "ollama/ollama"
+    tag: "0.1.12"
+  strategy:
+    type: Recreate
+  resources:
+    limits:
+      enabled: true
+      cpu: 2000 #if enabled please modify
+      memory: 17000 #if enabled please modify
+    requests:
+      enabled: false
+      cpu: 50 #if enabled please modify
+      memory: 50 #if enabled please modify
+
+pvc:
+  storage:
+    accessMode: ReadWriteMany
+    storageClass: #only applied when set
+    storageSize: 40 #size in Gi
+
+service:
+  loadbalancerIp: "127.0.0.1"
