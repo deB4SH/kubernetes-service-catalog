@@ -51,7 +51,7 @@ spec:
               path: /
               port: 80
             initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
-            periodSeconds: 10
+            periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
       initContainers:
         - name: copy
           image: alpine:latest
