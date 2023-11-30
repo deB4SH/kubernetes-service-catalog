@@ -5,6 +5,8 @@ deployment:
     tag: "v1.4.0"
   strategy:
     type: Recreate
+  livenessProbe:
+    initialDelaySeconds: 60
   resources:
     limits:
       enabled: false
