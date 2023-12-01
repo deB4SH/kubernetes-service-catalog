@@ -30,11 +30,12 @@ spec:
               name: http
               protocol: TCP
           resources:
-            {{ if .Values.deployment.resources.limits.enabled }}
-            limits:  
-              cpu: {{.Values.deployment.resources.limits.cpu}}m
+            {{- if .Values.deployment.resources.limits.enabled }}
+            limits:
+              {{- if .Values.deployment.resources.limits.enabledCpuLimit}}  
+              cpu: {{.Values.deployment.resources.limits.cpu}}m{{end}}
               memory: {{.Values.deployment.resources.limits.memory}}M {{end}}
-            {{ if .Values.deployment.resources.requests.enabled }}
+            {{- if .Values.deployment.resources.requests.enabled }}
             requests:
               cpu: {{.Values.deployment.resources.requests.cpu}}m
               memory: {{.Values.deployment.resources.requests.memory}}M {{end}}
