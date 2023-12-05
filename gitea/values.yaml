@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: gitea/gitea
-    tag: 1.19.0-rootless
+    tag: 1.21.1-rootless
 
 pvc:
   data:
