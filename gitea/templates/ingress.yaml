@@ -8,7 +8,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
     traefik.ingress.kubernetes.io/router.tls: "true"
-    {{- range $key, $val := .Values.ingress.additionalAnnotations }}
+    {{- range $key, $val := .additionalAnnotations }}
     {{ $key }}: "{{ $val }}"
     {{- end }}
 spec:
