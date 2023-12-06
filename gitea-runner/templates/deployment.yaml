@@ -38,7 +38,7 @@ spec:
             {{- if .Values.deployment.withDockerSocket}}
             - name: dockersock
               mountPath: "/var/run/docker.sock"
-            {{ end -}}
+            {{- end }}
       volumes:
         - name: data
           persistentVolumeClaim:
