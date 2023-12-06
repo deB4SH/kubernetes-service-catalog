@@ -28,16 +28,14 @@ spec:
           # Just spin & wait forever
           command: [ "/bin/bash", "-c", "--" ]
           args: [ "while true; do sleep 30; done;" ]
-          {{ end }}
+          {{ end -}}
           envFrom:
             - configMapRef:
                 name: {{.Release.Name}}-configuration
           volumeMounts:
             - mountPath: /data
               name: data
-        volumes:
+      volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{.Release.Name}}-data
-
-        
