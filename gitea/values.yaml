@@ -22,6 +22,9 @@ ingress:
   - name: gitea.local
   - name: gitea.lan
 
+service:
+  loadbalancerIp: "127.0.0.1" #overlay me
+
 configuration:
   databaseType: "postgres"
   databaseHost: "overlay_me"
