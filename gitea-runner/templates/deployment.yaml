@@ -35,6 +35,8 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+            - mountPath: /tmp
+              name: cache-volume
             {{- if .Values.deployment.withDockerSocket}}
             - name: dockersock
               mountPath: "/var/run/docker.sock"
@@ -43,6 +45,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{.Release.Name}}-data
+        - name: cache-volume
+          emptyDir:
+            sizeLimit: 10Gi
         {{ if .Values.deployment.withDockerSocket}}
         - name: dockersock
           hostPath:
