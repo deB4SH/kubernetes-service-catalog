@@ -1,0 +1,17 @@
+deployment:
+  sleepStart: false
+  image:
+    location: vegardit/gitea-act-runner
+    tag: dind-rootless-latest
+
+pvc:
+  data:
+    accessMode: ReadWriteOnce
+    #only applied when set
+    storageClass:
+    #size in Gi
+    storageSize: 5
+
+configuration:
+  instanceUrl: "overlay_me"
+  registrationToken: "overlay_me"
