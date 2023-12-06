@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: vegardit/gitea-act-runner
-    tag: dind-latest
+    tag: latest
   withDockerSocket: true
   dockersocket: /var/run/docker.sock
 
