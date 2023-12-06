@@ -35,7 +35,16 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+            {{- if .Values.deployment.withDockerSocket}}
+            - name: dockersock
+              mountPath: "/var/run/docker.sock"
+            {{ end -}}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{.Release.Name}}-data
+        {{ if .Values.deployment.withDockerSocket}}
+        - name: dockersock
+          hostPath:
+            path: {{.Values.deployment.dockersocket}}
+        {{ end -}}

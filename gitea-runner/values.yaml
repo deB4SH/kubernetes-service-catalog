@@ -3,6 +3,8 @@ deployment:
   image:
     location: vegardit/gitea-act-runner
     tag: dind-rootless-latest
+  withDockerSocket: true
+  dockersocket: /var/run/docker.sock
 
 pvc:
   data:
