@@ -17,3 +17,4 @@ pvc:
 configuration:
   instanceUrl: "overlay_me"
   registrationToken: "overlay_me"
+  instanceInsecure: "false"

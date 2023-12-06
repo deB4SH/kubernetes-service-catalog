@@ -5,3 +5,4 @@ metadata:
 data:
   GITEA_INSTANCE_URL: {{.Values.configuration.instanceUrl}}
   GITEA_RUNNER_REGISTRATION_TOKEN: {{.Values.configuration.registrationToken}}
+  GITEA_INSTANCE_INSECURE: {{.Values.configuration.instanceInsecure}}
