@@ -1,5 +1,8 @@
 deployment:
   sleepStart: false
+  image:
+    location: ghcr.io/maxi0604/create-astral
+    tag: v2.0.5b
   memory:
     limit: "8000"
     requests: "8000"

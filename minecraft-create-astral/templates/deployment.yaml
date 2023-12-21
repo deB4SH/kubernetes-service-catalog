@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: main
-          image: ghcr.io/maxi0604/create-astral:main
+          image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
           imagePullPolicy: Always
           {{ if .Values.deployment.sleepStart }}
           # Just spin & wait forever
