@@ -8,10 +8,10 @@ deployment:
   resources:
     limits:
       cpu: 250 
-      memory: 100
+      memory: 500
     requests:
       cpu: 100 
-      memory: 50
+      memory: 500
 
 pvc:
   - name: "appdata"
