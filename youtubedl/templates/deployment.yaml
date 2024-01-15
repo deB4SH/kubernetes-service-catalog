@@ -26,6 +26,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{lower $.Release.Name}}-config
+          {{- if .Values.deployment.resources.enabled }}
           resources:
             limits:
               cpu: {{.Values.deployment.resources.limits.cpu}}m
@@ -33,6 +34,7 @@ spec:
             requests:
               cpu: {{.Values.deployment.resources.requests.cpu}}m
               memory: {{.Values.deployment.resources.requests.memory}}M
+          {{- end }}
           volumeMounts:
             {{- range .Values.pvc -}}{{ printf "\n" }}
             - name: {{lower $.Release.Name}}-{{.name}}

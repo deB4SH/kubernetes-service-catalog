@@ -6,6 +6,7 @@ deployment:
   strategy:
     type: Recreate
   resources:
+    enabled: false
     limits:
       cpu: 250 
       memory: 500
