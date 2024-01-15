@@ -16,8 +16,8 @@ spec:
       name: {{lower $.Release.Name}}
     spec:
       containers:
-        - image: tzahi12345/youtubedl-material:nightly
-          imagePullPolicy: Always
+        - image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
+          imagePullPolicy: IfNotPresent
           name: youtubedl
           ports:
             - containerPort: 17442
