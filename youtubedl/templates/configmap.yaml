@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{lower $.Release.Name}}-config
+data:
+    ALLOW_CONFIG_MUTATIONS: "true"
+    ytdl_use_local_db: 'true'
+    write_ytdl_config: 'true'

@@ -1,0 +1,51 @@
+deployment:
+  image:
+    location: "ghcr.io/tzahi12345/youtubedl-material"
+    tag: "4.3.2"
+  replicas: 1
+  strategy:
+    type: Recreate
+  resources:
+    limits:
+      cpu: 250 
+      memory: 100
+    requests:
+      cpu: 100 
+      memory: 50
+
+pvc:
+  - name: "appdata"
+    accessMode: ReadWriteOnce
+    #only applied when set
+    storageClass:
+    storageSize: 1 #size in Gi
+    mountPoint: "/app/appdata"
+  - name: "audio"
+    accessMode: ReadWriteOnce
+    #only applied when set
+    storageClass:
+    storageSize: 50 #size in Gi
+    mountPoint: "/app/audio"
+  - name: "video"
+    accessMode: ReadWriteOnce
+    #only applied when set
+    storageClass:
+    storageSize: 50 #size in Gi
+    mountPoint: "/app/video"
+  - name: "subscription"
+    accessMode: ReadWriteOnce
+    #only applied when set
+    storageClass:
+    storageSize: 50 #size in Gi
+    mountPoint: "/app/subscription"
+  - name: "users"
+    accessMode: ReadWriteOnce
+    #only applied when set
+    storageClass:
+    storageSize: 50 #size in Gi
+    mountPoint: "/app/users"
+
+ingress:
+  hostname: youtubedl.lan
+  issuer: selfsigned-ca-issuer
+  ingressClass: traefik

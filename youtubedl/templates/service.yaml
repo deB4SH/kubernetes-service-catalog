@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{lower $.Release.Name}}-clusterip
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 17442 #container port
+  selector:
+    app: {{lower $.Release.Name}}
+  type: ClusterIP
