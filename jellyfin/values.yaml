@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: "ghcr.io/deb4sh/homelab-jellyfin-image"
-    tag: "10.8.10"
+    tag: "10.8.13-2"
   strategy:
     type: Recreate
   nodeaffinity:
