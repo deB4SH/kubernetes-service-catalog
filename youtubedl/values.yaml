@@ -46,6 +46,6 @@ pvc:
     mountPoint: "/app/users"
 
 ingress:
-  hostname: youtubedl.lan
-  issuer: selfsigned-ca-issuer
-  ingressClass: traefik
+  hostname: overlay_me
+  issuer: overlay_me
+  ingressClass: overlay_me
