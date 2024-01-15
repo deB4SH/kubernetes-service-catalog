@@ -38,7 +38,7 @@ pvc:
     #only applied when set
     storageClass:
     storageSize: 50 #size in Gi
-    mountPoint: "/app/subscription"
+    mountPoint: "/app/subscriptions"
   - name: "users"
     accessMode: ReadWriteOnce
     #only applied when set
