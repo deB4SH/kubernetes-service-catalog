@@ -1,0 +1,36 @@
+---
+{{if .Values.service.enableClusterIp}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{lower .Release.Name}}-clusterip
+spec:
+  selector:
+    app: {{lower .Release.Name}}
+  ports:
+    {{- range .Values.service.ports -}} {{ printf "\n" }}
+    - name: {{.name}}
+      port: {{.port}}
+      targetPort: {{.port}}
+    {{end}}
+  type: ClusterIP
+{{end -}}
+---
+{{if .Values.service.enableLoadbalancer}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{lower .Release.Name}}-loadbalancer
+spec:
+  selector:
+    app: {{lower .Release.Name}}
+  ports:
+    {{- range .Values.service.ports -}} {{ printf "\n" }}
+    - name: {{.name}}
+      port: {{.port}}
+      targetPort: {{.port}}
+    {{end}}
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{.Values.service.loadbalancerIp}}
+  type: LoadBalancer
+{{ end -}}

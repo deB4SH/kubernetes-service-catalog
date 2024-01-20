@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{lower .Release.Name}}
+  labels:
+    app: {{lower .Release.Name}}
+spec:
+  strategy:
+    type: Recreate #single instance only
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: {{lower .Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{lower .Release.Name}}
+    spec:
+      #nexus3 image is only build for amd64
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: beta.kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+      containers:
+        - name: nexus
+          image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag}}
+          imagePullPolicy: IfNotPresent
+          {{ if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{ end }}
+          env:
+            {{ toYaml .Values.deployment.env | nindent 12 }}
+          volumeMounts:
+            - name: {{lower .Release.Name}}-data
+              mountPath: /nexus-data
+          ports:
+            {{- range .Values.service.ports -}} {{ printf "\n" }}
+            - name: {{.name}}
+              containerPort: {{.port}}
+            {{end}}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: {{.Values.deployment.securityContext.runAsUser}}
+            runAsGroup: {{.Values.deployment.securityContext.runAsGroup}}
+            fsGroup: {{.Values.deployment.securityContext.fsGroup}}
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL        
+      volumes:
+        - name: {{lower .Release.Name}}-data
+          persistentVolumeClaim:
+            claimName: {{lower .Release.Name}}-data
