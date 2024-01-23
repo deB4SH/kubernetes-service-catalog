@@ -1,8 +1,8 @@
 deployment:
   sleepStart: false
   image:
-    location: matrixdotorg/synapse
-    tag: v1.92.3
+    location: ghcr.io/element-hq/synapse
+    tag: v1.98.0
   resources:
     limits:
       cpu: 500

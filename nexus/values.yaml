@@ -1,0 +1,37 @@
+deployment:
+  sleepStart: false
+  image:
+    repository: sonatype/nexus3
+    tag: 3.64.0
+  env:
+    # minimum recommended memory settings for a small, person instance from
+    # https://help.sonatype.com/repomanager3/product-information/system-requirements
+    - name: INSTALL4J_ADD_VM_PARAMS
+      value: |-
+        -Xms2703M -Xmx2703M
+        -XX:MaxDirectMemorySize=2703M
+        -XX:+UnlockExperimentalVMOptions
+        -XX:+UseCGroupMemoryLimitForHeap
+        -Djava.util.prefs.userRoot=/nexus-data/javaprefs
+    - name: NEXUS_SECURITY_RANDOMPASSWORD
+      value: "true"
+  securityContext:
+    runAsUser: 200
+    runAsGroup: 200
+    fsGroup: 200
+  podAnnotations: {}
+
+service:
+  enableLoadbalancer: true
+  enableClusterIp: true
+  ports:
+    - name: http
+      port: 8081
+  loadbalancerIp: 127.0.0.1
+      
+
+pvc:
+  data:
+    accessMode: ReadWriteMany
+    storageClass: overlay_me
+    storageSize: 20 #size in Gi
