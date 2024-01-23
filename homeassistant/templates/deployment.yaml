@@ -20,10 +20,14 @@ spec:
       annotations:
         checksum/configuration: {{ include (print $.Template.BasePath "/settings.yaml") . | sha256sum }}
     spec:
-      {{ if .Values.deployment.hostNetwork }}
+      {{- if .Values.deployment.hostNetwork }}
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
-      {{ end }}
+      {{- end }}
+      {{- if .Values.deployment.nodeSelector.enabled }}
+      nodeSelector:
+        kubernetes.io/hostname: {{.Values.deployment.nodeSelector.nodeName}}
+      {{- end }}
       containers:
         - name: homeassistant
           image: {{.Values.deployment.image.location}}:{{.Values.deployment.image.tag}}
