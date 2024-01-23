@@ -5,7 +5,7 @@ deployment:
     nodeName: overlay_me_if_required
   image:
     location: eclipse-mosquitto
-    tag: 2.0.18
+    tag: 2.0.14
   resources:
     limits:
       cpu: 128
