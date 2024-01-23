@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: koenkk/zigbee2mqtt
-    tag: 1.30.3
+    tag: 1.35.1
   resources:
     limits:
       cpu: 500
