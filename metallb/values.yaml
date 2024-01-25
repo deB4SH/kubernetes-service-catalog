@@ -1,6 +1,10 @@
 ipaddresspool:
   adresses: 127.0.0.1-127.0.0.100
 
+l2advertisement:
+  enabled: true #set this to true if you want to provide your own L2Advertisement
+  #Please refer to: https://metallb.universe.tf/configuration/_advanced_l2_configuration/
+
 metallb:
   rbac:
     create: true
