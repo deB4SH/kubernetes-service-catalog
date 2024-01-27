@@ -1,0 +1,17 @@
+---
+{{- if .Values.service.clusterIp.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{.Release.Name}}-lb
+spec:
+  ports:
+  - port: 9042
+    targetPort: 9042
+    name: web
+  selector:
+    app: fritzbox-monitoring
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.service.loadbalancer.ip }}
+  type: LoadBalancer
+{{- end }}

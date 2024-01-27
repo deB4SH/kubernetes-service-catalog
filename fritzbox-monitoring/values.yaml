@@ -13,5 +13,13 @@ deployment:
     gateway_url: "http://127.0.0.1:49000"
     listen_address: "0.0.0.0:9042"
 
+service:
+  clusterIp:
+    enabled: true
+  loadbalancer:
+    enabled: false
+    ip: 127.0.0.1
+    
+
 serviceMonitor:
   enabled: false
