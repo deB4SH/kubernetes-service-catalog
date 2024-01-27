@@ -52,6 +52,8 @@ victoria-metrics-operator:
     psp_auto_creation_enabled: true
     enable_converter_ownership: false
     useCustomConfigReloader: false
+  serviceAccount:
+    create: true
   resources:
     limits:
       cpu: 120m
@@ -59,3 +61,5 @@ victoria-metrics-operator:
     requests:
       cpu: 80m
       memory: 120Mi
+  serviceMonitor:
+    enabled: true
