@@ -1,0 +1,121 @@
+grafana:
+  rbac:
+    create: true
+    pspEnabled: true
+    pspUseAppArmor: true
+    namespaced: false
+
+  serviceAccount:
+    create: true
+    autoMount: true
+
+  replicas: 1
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPU: "60"
+
+  deploymentStrategy:
+    type: Recreate
+
+  serviceMonitor:
+    enabled: true
+    path: /metrics
+
+  ingress:
+    enabled: true
+    ingressClassName: overlay_me
+    annotations:
+      cert-manager.io/cluster-issuer: overlay_me
+      kubernetes.io/ingress.class: overlay_me
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      ingress.kubernetes.io/ssl-force-host: "true"
+      ingress.kubernetes.io/ssl-redirect: "true"
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+    requests:
+      cpu: 1000m
+      memory: 1024Mi
+
+  initChownData:
+    enabled: false
+
+  plugins:
+    - digrich-bubblechart-panel
+    - grafana-clock-panel
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: victoriametrics
+          type: prometheus
+          orgId: 1
+          url: #TODO overlay_me
+          access: proxy
+          isDefault: true
+          updateIntervalSeconds: 10
+          editable: true
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: "default"
+          orgId: 1
+          folder: ""
+          type: file
+          disableDeletion: true
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+        
+  grafana.ini:
+    snapshots:
+      external_enabled: false
+    analytics:
+      check_for_updates: false
+      reporting_enabled: false
+    security:
+      cookie_secure: true
+      content_security_policy: true
+      disable_gravatar: true
+      strict_transport_security: true
+    server:
+      domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ .Values.ingress.hosts | first }}{{ else }}''{{ end }}"
+
+  sidecar:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+    alerts:
+      enabled: false
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      folder: /tmp/dashboards
+      defaultFolderName: null
+      searchNamespace: ALL
+      watchMethod: WATCH
+      folderAnnotation: grafana-folder
+      provider:
+        folder: "/tmp/dashboards"
+        foldersFromFilesStructure: true
+    datasources:
+      enabled: false
+    plugins:
+      enabled: false
+    notifiers:
+      enabled: false
+
+  revisionHistoryLimit: 2
