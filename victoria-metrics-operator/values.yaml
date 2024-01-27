@@ -45,10 +45,11 @@ vmCluster: #inspired by the official high availability setup
 
 victoria-metrics-operator:
   watchNamespace: ""
+  createCRD: true
   operator:
     disable_prometheus_converter: false
-    prometheus_converter_add_argocd_ignore_annotations: false
-    psp_auto_creation_enabled: false
+    prometheus_converter_add_argocd_ignore_annotations: true
+    psp_auto_creation_enabled: true
     enable_converter_ownership: false
     useCustomConfigReloader: false
   resources:
