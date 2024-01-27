@@ -19,7 +19,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: vmagent-vmagent.{{.Release.Namespace}}
+                name: vmagent-vmagent
                 port:
                   name: http
   tls:
