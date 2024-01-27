@@ -1,6 +1,6 @@
 {{ if .Values.serviceMonitor.enabled }}
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
 metadata:
   name: fritzbox-monitoring
   labels:
@@ -11,5 +11,5 @@ spec:
       app: fritzbox-monitoring
   endpoints:
   - port: web
-    path: /metrics
+    path: /metrics 
 {{ end }}
