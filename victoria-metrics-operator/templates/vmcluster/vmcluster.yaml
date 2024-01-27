@@ -31,10 +31,12 @@ spec:
           resources:
             requests:
               storage: {{ .Values.vmCluster.vmStorage.storage.requestsStorage }}Gi
+    {{ if .Values.vmCluster.vmStorage.resources.enabled }}
     resources:
       limits:
         cpu: {{ .Values.vmCluster.vmStorage.resources.cpuLimit }}M
         memory: {{ .Values.vmCluster.vmStorage.resources.memoryLimit }}Mi
+    {{ end }}
   vmselect:
     replicaCount: {{.Values.vmCluster.vmSelect.replicaCount}}
     cacheMountPath: "/select-cache"
@@ -56,10 +58,12 @@ spec:
           resources:
             requests:
               storage: {{.Values.vmCluster.vmSelect.storage.requestsStorage}}Gi
+    {{ if .Values.vmCluster.vmSelect.resources.enabled }}
     resources:
       limits:
         cpu: {{.Values.vmCluster.vmSelect.resources.cpuLimit}}M
         memory: {{.Values.vmCluster.vmSelect.resources.memoryLimit}}Mi
+    {{ end }}
   vminsert:
     replicaCount: {{.Values.vmCluster.vmInsert.replicaCount}}
     {{ if .Values.vmCluster.antiAffinity }}
@@ -74,8 +78,10 @@ spec:
               - "vminsert"
           topologyKey: "kubernetes.io/hostname"
     {{ end }}
+    {{ if .Values.vmCluster.vmInsert.resources.enabled }}
     resources:
       limits:
         cpu: {{.Values.vmCluster.vmInsert.resources.cpuLimit}}M
         memory: {{.Values.vmCluster.vmInsert.resources.memoryLimit}}Mi
+    {{ end }}
 {{ end }}

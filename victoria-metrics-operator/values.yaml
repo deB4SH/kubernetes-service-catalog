@@ -13,6 +13,7 @@ vmCluster: #inspired by the official high availability setup
       #insert value if you want to use a specific storageClassName
       storageClassName: 
     resources:
+      enabled: true
       cpuLimit: 1000 #value in M
       memoryLimit: 2048 #value in Mi
   vmSelect:
@@ -22,6 +23,7 @@ vmCluster: #inspired by the official high availability setup
       #insert value if you want to use a specific storageClassName
       storageClassName:
     resources:
+      enabled: true
       cpuLimit: 1000 #value in M
       memoryLimit: 500 #value in Mi
   vmInsert:
@@ -29,6 +31,7 @@ vmCluster: #inspired by the official high availability setup
     storage:
       requestsStorage: 2 #value in Gi
     resources:
+      enabled: true
       cpuLimit: 1000 #value in M
       memoryLimit: 500 #value in Mi
     
