@@ -2,7 +2,7 @@ deployment:
   sleepStart: false
   image:
     location: ghcr.io/sberk42/fritzbox_exporter/fritzbox_exporter
-    tag: 4a4cc447b575b13c3e1c3fbc2a83d511070fa2ca
+    tag: 6a1199ccb7cc48c0f76fc8027723ebf02b35783c
   resources:
     limits:
       memory: 256
