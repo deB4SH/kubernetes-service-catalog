@@ -1,5 +1,5 @@
 ---
-{{- if .Values.service.clusterIp.enabled }}
+{{- if .Values.service.loadbalancer.enabled }}
 kind: Service
 apiVersion: v1
 metadata:
