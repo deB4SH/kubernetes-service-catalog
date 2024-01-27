@@ -10,6 +10,7 @@ spec:
   vmstorage:
     replicaCount: {{ .Values.vmCluster.vmStorage.replicaCount }}
     storageDataPath: "/vm-data"
+    {{ if .Values.vmCluster.vmStorage.antiAffinity }}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -20,6 +21,7 @@ spec:
               values:
               - "vmstorage"
           topologyKey: "kubernetes.io/hostname"
+    {{ end}}
     storage:
       volumeClaimTemplate:
         spec:
@@ -36,6 +38,7 @@ spec:
   vmselect:
     replicaCount: {{.Values.vmCluster.vmSelect.replicaCount}}
     cacheMountPath: "/select-cache"
+    {{ if .Values.vmCluster.vmStorage.antiAffinity }}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -46,6 +49,7 @@ spec:
               values:
               - "vmselect"
           topologyKey: "kubernetes.io/hostname"
+    {{ end }}
     storage:
       volumeClaimTemplate:
         spec:
@@ -58,6 +62,7 @@ spec:
         memory: {{.Values.vmCluster.vmSelect.resources.memoryLimit}}Mi
   vminsert:
     replicaCount: {{.Values.vmCluster.vmInsert.replicaCount}}
+    {{ if .Values.vmCluster.vmStorage.antiAffinity }}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -68,6 +73,7 @@ spec:
               values:
               - "vminsert"
           topologyKey: "kubernetes.io/hostname"
+    {{ end }}
     resources:
       limits:
         cpu: {{.Values.vmCluster.vmInsert.resources.cpuLimit}}M
