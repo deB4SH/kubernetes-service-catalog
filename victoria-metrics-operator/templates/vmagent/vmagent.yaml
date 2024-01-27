@@ -18,7 +18,7 @@ spec:
     {{- if .Values.vmAgent.remoteWriteUrl}}
     - url: {{.Values.vmAgent.remoteWriteUrl}}
     {{- else }}
-    - url: http://vminsert.{{.Release.Namespace}}:8480/insert/0/prometheus
+    - url: http://vminsert-vmcluster.{{.Release.Namespace}}:8480/insert/0/prometheus
     {{- end }}
   scrapeInterval: 10s
   selectAllByDefault: true
