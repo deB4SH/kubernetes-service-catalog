@@ -17,7 +17,7 @@ service:
   clusterIp:
     enabled: true
   loadbalancer:
-    enabled: true
+    enabled: false
     ip: 127.0.0.1
     
 
