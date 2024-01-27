@@ -4,15 +4,15 @@ kind: Ingress
 metadata:
   name: vmagent-ingress
   annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.className }}
+    kubernetes.io/ingress.class: {{ .Values.vmAgent.ingress.className }}
     ingress.kubernetes.io/force-ssl-redirect: "true"
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.issuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.vmAgent.ingress.issuer }}
     cert-manager.io/renew-before: 360h #15 days
-    cert-manager.io/common-name: {{ .Values.ingress.host }}
+    cert-manager.io/common-name: {{ .Values.vmAgent.ingress.host }}
     kubernetes.io/tls-acme: "true"
 spec:
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{ .Values.vmAgent.ingress.host }}
       http:
         paths:
           - path: /
@@ -24,6 +24,6 @@ spec:
                   name: http
   tls:
     - hosts:
-        - {{ .Values.ingress.host }}
-      secretName: {{ .Values.ingress.host }}
+        - {{ .Values.vmAgent.ingress.host }}
+      secretName: {{ .Values.vmAgent.ingress.host }}
 {{- end }}
