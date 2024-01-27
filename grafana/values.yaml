@@ -29,7 +29,6 @@ grafana:
     ingressClassName: overlay_me
     annotations:
       cert-manager.io/cluster-issuer: overlay_me
-      kubernetes.io/ingress.class: overlay_me
       nginx.ingress.kubernetes.io/rewrite-target: /
       traefik.ingress.kubernetes.io/router.tls: "true"
       ingress.kubernetes.io/ssl-force-host: "true"
