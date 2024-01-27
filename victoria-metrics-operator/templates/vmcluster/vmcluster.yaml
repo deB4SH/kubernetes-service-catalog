@@ -6,6 +6,7 @@ metadata:
   name: vmcluster
 spec:
   replicationFactor: {{ .Values.vmCluster.replicationFactor }}
+  retentionPeriod: {{ .Values.vmCluster.retentionPeriod }}
   vmstorage:
     replicaCount: {{ .Values.vmCluster.vmStorage.replicaCount }}
     storageDataPath: "/vm-data"

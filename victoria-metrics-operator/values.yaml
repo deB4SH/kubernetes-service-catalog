@@ -4,6 +4,7 @@ vmAgent:
 vmCluster: #inspired by the official high availability setup
   enabled: false #set to true to enable
   replicationFactor: 2
+  retentionPeriod: 3
   vmStorage:
     replicaCount: 10
     storage:
