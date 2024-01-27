@@ -1,5 +1,35 @@
-vm-agent:
+vmAgent:
+  enabled: true #set to true to enable
+
+vmCluster: #inspired by the official high availability setup
   enabled: false #set to true to enable
+  replicationFactor: 2
+  vmStorage:
+    replicaCount: 10
+    storage:
+      requestsStorage: 10 #value in Gi
+      #insert value if you want to use a specific storageClassName
+      storageClassName: 
+    resources:
+      cpuLimit: 1000 #value in M
+      memoryLimit: 2048 #value in Mi
+  vmSelect:
+    replicaCount: 3
+    storage:
+      requestsStorage: 2 #value in Gi
+      #insert value if you want to use a specific storageClassName
+      storageClassName:
+    resources:
+      cpuLimit: 1000 #value in M
+      memoryLimit: 500 #value in Mi
+  vmInsert:
+    replicaCount: 4
+    storage:
+      requestsStorage: 2 #value in Gi
+    resources:
+      cpuLimit: 1000 #value in M
+      memoryLimit: 500 #value in Mi
+    
 
 victoria-metrics-operator:
   operator:
