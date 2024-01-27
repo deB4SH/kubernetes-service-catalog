@@ -1415,7 +1415,7 @@ data:
               {
                 "expr": "gateway_data_ecostat_ramusage",
                 "interval": "",
-                "legendFormat": "RAM {{ram_type}}",
+                "legendFormat": "RAM {{ printf "{{ram_type}}" }}",
                 "refId": "B"
               }
             ],
