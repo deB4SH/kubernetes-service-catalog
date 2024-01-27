@@ -15,11 +15,11 @@ spec:
     name: vmagent-additional-scrape-configs
     key: additional-scrape-configs.yaml
   remoteWrite:
-    {{ - if .Values.vmAgent.remoteWriteUrl}}
+    {{- if .Values.vmAgent.remoteWriteUrl}}
     - url: {{.Values.vmAgent.remoteWriteUrl}}
-    {{ else }}
+    {{- else }}
     - url: http://vminsert.{{.Release.Namespace}}:8480/insert/0/prometheus
-    {{ end }}
+    {{- end }}
   scrapeInterval: 10s
   selectAllByDefault: true
   serviceAccountName: victoria-metrics-agent
