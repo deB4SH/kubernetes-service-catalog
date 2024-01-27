@@ -10,7 +10,7 @@ spec:
   vmstorage:
     replicaCount: {{ .Values.vmCluster.vmStorage.replicaCount }}
     storageDataPath: "/vm-data"
-    {{ if .Values.vmCluster.vmStorage.antiAffinity }}
+    {{ if .Values.vmCluster.antiAffinity }}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -38,7 +38,7 @@ spec:
   vmselect:
     replicaCount: {{.Values.vmCluster.vmSelect.replicaCount}}
     cacheMountPath: "/select-cache"
-    {{ if .Values.vmCluster.vmStorage.antiAffinity }}
+    {{ if .Values.vmCluster.antiAffinity }}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -62,7 +62,7 @@ spec:
         memory: {{.Values.vmCluster.vmSelect.resources.memoryLimit}}Mi
   vminsert:
     replicaCount: {{.Values.vmCluster.vmInsert.replicaCount}}
-    {{ if .Values.vmCluster.vmStorage.antiAffinity }}
+    {{ if .Values.vmCluster.antiAffinity }}
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
