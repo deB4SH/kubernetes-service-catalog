@@ -1,5 +1,7 @@
 vmAgent:
   enabled: true #set to true to enable
+  #configure next value if you want an other endpoint
+  remoteWriteUrl: 
 
 vmCluster: #inspired by the official high availability setup
   enabled: false #set to true to enable

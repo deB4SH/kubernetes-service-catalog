@@ -1,0 +1,27 @@
+---
+{{ if .Values.vmAgent.enabled }}
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: vmagent
+spec:
+  extraArgs:
+    envflag.enable: "true"
+    envflag.prefix: VM_
+    loggerFormat: json
+    promscrape.maxScrapeSize: "167772160"
+    promscrape.streamParse: "true"
+  additionalScrapeConfigs:
+    name: vmagent-additional-scrape-configs
+    key: additional-scrape-configs.yaml
+  remoteWrite:
+    {{ - if .Values.vmAgent.remoteWriteUrl}}
+    - url: {{.Values.vmAgent.remoteWriteUrl}}
+    {{ else }}
+    - url: http://vminsert.{{.Release.Namespace}}:8480/insert/0/prometheus
+    {{ end }}
+  scrapeInterval: 10s
+  selectAllByDefault: true
+  serviceAccountName: victoria-metrics-agent
+  replicaCount: 1
+{{ end }}
