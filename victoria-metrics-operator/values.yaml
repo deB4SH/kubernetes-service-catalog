@@ -1,5 +1,10 @@
 vmAgent:
   enabled: true #set to true to enable
+  ingress:
+    enabled: false # set to true to enable
+    className: overlay_me
+    issuer: overlay_me
+    host: overlay_me
   #configure next value if you want an other endpoint
   remoteWriteUrl: 
 
