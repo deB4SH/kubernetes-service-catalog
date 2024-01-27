@@ -1974,7 +1974,7 @@ data:
               {
                 "expr": "gateway_data_energy_consumption",
                 "interval": "",
-                "legendFormat": "{{name}}",
+                "legendFormat": "{{ printf "{{name}}" }}",
                 "refId": "A"
               }
             ],
