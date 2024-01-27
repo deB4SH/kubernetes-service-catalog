@@ -1655,7 +1655,7 @@ data:
               {
                 "expr": "gateway_wlan_current_connections",
                 "interval": "",
-                "legendFormat": "{{wlan}}",
+                "legendFormat": "{{ printf "{{wlan}}" }}",
                 "refId": "A"
               }
             ],
