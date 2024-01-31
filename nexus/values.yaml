@@ -29,6 +29,11 @@ service:
       port: 8081
   loadbalancerIp: 127.0.0.1
       
+ingress:
+  - name: overlay_me
+    ingressClass: overlay_me
+    clusterIssuer: overlay_me
+    additionalAnnotations: {}
 
 pvc:
   data:
