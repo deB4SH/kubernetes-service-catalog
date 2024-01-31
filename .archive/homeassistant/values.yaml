@@ -2,6 +2,9 @@ deployment:
   sleepStart: false
   hostNetwork: true
   securityPrivilegeEscalation: false
+  nodeSelector:
+    enabled: false
+    nodeName: overlay_me_if_required
   image: 
     location: homeassistant/home-assistant
     tag: 2023.12

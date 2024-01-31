@@ -1,0 +1,87 @@
+---
+{{ if .Values.vmCluster.enabled }}
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMCluster
+metadata:
+  name: vmcluster
+spec:
+  replicationFactor: {{ .Values.vmCluster.replicationFactor }}
+  retentionPeriod: "{{ .Values.vmCluster.retentionPeriod }}"
+  vmstorage:
+    replicaCount: {{ .Values.vmCluster.vmStorage.replicaCount }}
+    storageDataPath: "/vm-data"
+    {{ if .Values.vmCluster.antiAffinity }}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+              - "vmstorage"
+          topologyKey: "kubernetes.io/hostname"
+    {{ end}}
+    storage:
+      volumeClaimTemplate:
+        spec:
+          {{- if .Values.vmCluster.vmStorage.storage.storageClassName }}
+          storageClassName: {{ .Values.vmCluster.vmStorage.storage.storageClassName }}
+          {{- end }}
+          resources:
+            requests:
+              storage: {{ .Values.vmCluster.vmStorage.storage.requestsStorage }}Gi
+    {{ if .Values.vmCluster.vmStorage.resources.enabled }}
+    resources:
+      limits:
+        cpu: {{ .Values.vmCluster.vmStorage.resources.cpuLimit }}M
+        memory: {{ .Values.vmCluster.vmStorage.resources.memoryLimit }}Mi
+    {{ end }}
+  vmselect:
+    replicaCount: {{.Values.vmCluster.vmSelect.replicaCount}}
+    cacheMountPath: "/select-cache"
+    {{ if .Values.vmCluster.antiAffinity }}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+              - "vmselect"
+          topologyKey: "kubernetes.io/hostname"
+    {{ end }}
+    storage:
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: {{.Values.vmCluster.vmSelect.storage.requestsStorage}}Gi
+    {{ if .Values.vmCluster.vmSelect.resources.enabled }}
+    resources:
+      limits:
+        cpu: {{.Values.vmCluster.vmSelect.resources.cpuLimit}}M
+        memory: {{.Values.vmCluster.vmSelect.resources.memoryLimit}}Mi
+    {{ end }}
+  vminsert:
+    replicaCount: {{.Values.vmCluster.vmInsert.replicaCount}}
+    {{ if .Values.vmCluster.antiAffinity }}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: "app.kubernetes.io/name"
+              operator: In
+              values:
+              - "vminsert"
+          topologyKey: "kubernetes.io/hostname"
+    {{ end }}
+    {{ if .Values.vmCluster.vmInsert.resources.enabled }}
+    resources:
+      limits:
+        cpu: {{.Values.vmCluster.vmInsert.resources.cpuLimit}}M
+        memory: {{.Values.vmCluster.vmInsert.resources.memoryLimit}}Mi
+    {{ end }}
+{{ end }}

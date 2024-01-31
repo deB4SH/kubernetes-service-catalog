@@ -1,0 +1,65 @@
+vmAgent:
+  enabled: true #set to true to enable
+  ingress:
+    enabled: false # set to true to enable
+    className: overlay_me
+    issuer: overlay_me
+    host: overlay_me
+  #configure next value if you want an other endpoint
+  remoteWriteUrl: 
+
+vmCluster: #inspired by the official high availability setup
+  enabled: false #set to true to enable
+  replicationFactor: 2
+  retentionPeriod: 3
+  antiAffinity: enabled
+  vmStorage:
+    replicaCount: 10
+    storage:
+      requestsStorage: 10 #value in Gi
+      #insert value if you want to use a specific storageClassName
+      storageClassName: 
+    resources:
+      enabled: true
+      cpuLimit: 1000 #value in M
+      memoryLimit: 2048 #value in Mi
+  vmSelect:
+    replicaCount: 3
+    storage:
+      requestsStorage: 2 #value in Gi
+      #insert value if you want to use a specific storageClassName
+      storageClassName:
+    resources:
+      enabled: true
+      cpuLimit: 1000 #value in M
+      memoryLimit: 500 #value in Mi
+  vmInsert:
+    replicaCount: 4
+    storage:
+      requestsStorage: 2 #value in Gi
+    resources:
+      enabled: true
+      cpuLimit: 1000 #value in M
+      memoryLimit: 500 #value in Mi
+    
+
+victoria-metrics-operator:
+  watchNamespace: ""
+  createCRD: true
+  operator:
+    disable_prometheus_converter: false
+    prometheus_converter_add_argocd_ignore_annotations: true
+    psp_auto_creation_enabled: true
+    enable_converter_ownership: false
+    useCustomConfigReloader: false
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 120m
+      memory: 320Mi
+    requests:
+      cpu: 80m
+      memory: 120Mi
+  serviceMonitor:
+    enabled: true

@@ -1,7 +1,9 @@
+---
+{{- if .Values.service.clusterIp.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: fritzbox-monitoring-clusterip
+  name: {{.Release.Name}}-clusterip
   labels:
     app: fritzbox-monitoring
 spec:
@@ -11,3 +13,4 @@ spec:
   - port: 9042
     targetPort: 9042
     name: web
+{{- end }}

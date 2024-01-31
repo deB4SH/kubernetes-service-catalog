@@ -4,5 +4,5 @@ version: 1.0.0
 description: This Chart deploys metallb.
 dependencies:
   - name: metallb
-    version: 0.13.10
+    version: 0.13.12
     repository: https://metallb.github.io/metallb

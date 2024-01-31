@@ -1,0 +1,29 @@
+{{- if .Values.vmAgent.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vmagent-ingress
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.vmAgent.ingress.className }}
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: {{ .Values.vmAgent.ingress.issuer }}
+    cert-manager.io/renew-before: 360h #15 days
+    cert-manager.io/common-name: {{ .Values.vmAgent.ingress.host }}
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+    - host: {{ .Values.vmAgent.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vmagent-vmagent
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - {{ .Values.vmAgent.ingress.host }}
+      secretName: {{ .Values.vmAgent.ingress.host }}
+{{- end }}

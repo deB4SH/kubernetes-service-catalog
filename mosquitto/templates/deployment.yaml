@@ -18,6 +18,10 @@ spec:
       labels:
         app: {{.Release.Name}}
     spec:
+      {{- if .Values.deployment.nodeSelector.enabled }}
+      nodeSelector:
+        kubernetes.io/hostname: {{.Values.deployment.nodeSelector.nodeName}}
+      {{- end }}
       containers:
         - name: {{.Release.Name}}
           image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
