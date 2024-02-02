@@ -1,0 +1,38 @@
+deployment:
+  sleepStart: false
+  image:
+    location: "freshrss/freshrss"
+    tag: "1.23.1"
+  strategy:
+    type: Recreate
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 15
+    timeoutSeconds: 5
+  resources:
+    limits:
+      enabled: false
+      cpu: 100 #if enabled please modify
+      memory: 100 #if enabled please modify
+    requests:
+      enabled: false
+      cpu: 50 #if enabled please modify
+      memory: 50 #if enabled please modify
+
+configuration:
+  cron: [29,59]
+
+pvc:
+  storage:
+    accessMode: ReadWriteMany
+    storageClass: #only applied when set
+    storageSize: 1 #size in Gi
+
+ingress:
+  hostname: overlayme.lan
+  issuer: overlay_me
+  ingressClass: overlay_me
+
+service:
+  loadbalancerEnabled: false
+  loadbalancerIp: "127.0.0.1"
