@@ -1,30 +1,31 @@
+{{- range .Values.ingress }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{lower .Release.Name}}-ingress
+  name: {{ $.Release.Name }}-{{ .name }}-ingress
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.issuer }}
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
-    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-    traefik.ingress.kubernetes.io/router.tls: 'true'
-    ingress.kubernetes.io/ssl-force-host: "true"
-    ingress.kubernetes.io/ssl-redirect: "true"
-    {{- range $key, $val := .Values.ingress.additionalAnnotations }}
+    cert-manager.io/cluster-issuer: {{.issuer}}
+    kubernetes.io/ingress.class: {{.ingressClass}}
+    traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    {{- range $key, $val := .additionalAnnotations }}
     {{ $key }}: "{{ $val }}"
     {{- end }}
 spec:
   tls:
     - hosts:
-        - {{ .Values.ingress.hostname }}
-      secretName: {{ .Values.ingress.hostname }}
+        - {{ .name }}
+      secretName: {{ .name }}
   rules:
-    - host: {{ .Values.ingress.hostname }}
+    - host: {{ .name }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{lower .Release.Name}}-clusterip
+                name: {{ lower $.Release.Name }}-clusterip
                 port:
                   number: 80
+---
+{{- end}}

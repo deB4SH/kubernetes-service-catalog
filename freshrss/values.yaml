@@ -29,9 +29,12 @@ pvc:
     storageSize: 1 #size in Gi
 
 ingress:
-  hostname: overlayme.lan
-  issuer: overlay_me
-  ingressClass: overlay_me
+  - name: overlay_me.lan
+    issuer: overlay_me
+    ingressClass: overlay_me
+  - name: overlay_another.lan
+    issuer: overlay_me
+    ingressClass: overlay_me
 
 service:
   loadbalancerEnabled: false
