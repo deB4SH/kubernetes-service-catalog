@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{lower .Release.Name}}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: {{.Values.deployment.strategy.type}}
+  selector:
+    matchLabels:
+      app: {{lower .Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{lower .Release.Name}}
+      name: {{lower .Release.Name}}
+    spec:
+      containers:
+        - image: {{ .Values.deployment.image.location }}:{{ .Values.deployment.image.tag }}
+          imagePullPolicy: IfNotPresent
+          name: rss
+          {{- if .Values.deployment.sleepStart }}
+          # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          {{- end }}
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          env:
+            - name: CRON_MIN
+              value: "{{ join "," .Values.configuration.cron }}"
+          resources:
+            {{- if .Values.deployment.resources.limits.enabled }}
+            limits:  
+              cpu: {{.Values.deployment.resources.limits.cpu}}m
+              memory: {{.Values.deployment.resources.limits.memory}}M
+            {{- else }}
+            limits: {}
+            {{- end}}
+            {{- if .Values.deployment.resources.requests.enabled }}
+            requests:
+              cpu: {{.Values.deployment.resources.requests.cpu}}m
+              memory: {{.Values.deployment.resources.requests.memory}}M
+            {{ else }}
+            requests: {}
+            {{- end}}
+          volumeMounts:
+            - name: storage
+              mountPath: /var/www/FreshRSS/data
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.deployment.livenessProbe.timeoutSeconds }}
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: {{lower .Release.Name}}-storage
