@@ -1,21 +1,23 @@
+{{- range .Values.ingress }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hedgedoc-ingress
-  labels:
-    gethomepage.dev/enabled: "true"
+  name: {{ $.Release.Name }}-{{ .name }}-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    {{- range $key, $val := .Values.ingress.additionalAnnotations }}
+    cert-manager.io/cluster-issuer: {{.issuer}}
+    kubernetes.io/ingress.class: {{.ingressClass}}
+    traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    {{- range $key, $val := .additionalAnnotations }}
     {{ $key }}: "{{ $val }}"
     {{- end }}
 spec:
   tls:
     - hosts:
-        - {{ .Values.ingress.name }}
-      secretName: {{ .Values.ingress.name }}
+        - {{ .name }}
+      secretName: {{ .name }}
   rules:
-    - host: {{ .Values.ingress.name }}
+    - host: {{ .name }}
       http:
         paths:
           - path: /
@@ -25,3 +27,5 @@ spec:
                 name: hedgedoc-clusterip
                 port:
                   number: 80
+---
+{{- end}}

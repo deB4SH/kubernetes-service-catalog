@@ -23,8 +23,12 @@ service:
   ip: 127.0.0.1
 
 ingress:
-  name: hedgedoc.local
-  enableHomepage: false
+  - name: overlay_me.lan
+    issuer: overlay_me
+    ingressClass: overlay_me
+  - name: overlay_another.lan
+    issuer: overlay_me
+    ingressClass: overlay_me
 
 configuration:
   domain: "overlay-me"
