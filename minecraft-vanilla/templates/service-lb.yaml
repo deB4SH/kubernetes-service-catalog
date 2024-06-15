@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: minecraft-lb
+  annotations:
+    {{ if .Values.service.ciliumIp }}
+    "io.cilium/lb-ipam-ips": "{{ .Values.service.ip }}"
+    {{ end }}
+spec:
+  selector:
+    app: minecraft-vanilla-minecraft
+  ports:
+    - name: game
+      port: 25565
+      protocol: TCP
+  type: LoadBalancer
