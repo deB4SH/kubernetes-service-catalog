@@ -1,5 +1,6 @@
 service:
-  ciliumIp: false
+  metallbAnnotation: false
+  metallbAnnotationName: "overlay_me"
   ip: "overlay_me"
 
 minecraft:
