@@ -1,6 +1,6 @@
 service:
-  metallbAnnotation: false
-  metallbAnnotationName: "overlay_me"
+  ciliumShareIp: false
+  ciliumShareKey: "overlay_me"
   ip: "overlay_me"
 
 minecraft:
