@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: minecraft-tcp
+  name: minecraft
   annotations:
     {{ if .Values.service.ciliumShareIp }}
     io.cilium/lb-ipam-sharing-key: "{{ .Values.service.ciliumShareKey }}"
