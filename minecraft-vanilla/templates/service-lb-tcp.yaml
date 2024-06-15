@@ -5,7 +5,7 @@ metadata:
   annotations:
     {{ if .Values.service.ciliumShareIp }}
     io.cilium/lb-ipam-sharing-key: "{{ .Values.service.ciliumShareKey }}"
-    io.cilium/lb-ipam-ips": "{{ .Values.service.ip }}"
+    io.cilium/lb-ipam-ips: "{{ .Values.service.ip }}"
     {{ end }}
 spec:
   selector:
