@@ -13,5 +13,6 @@ spec:
   ports:
     - name: game
       port: 25565
+      protocol: UDP
   externalTrafficPolicy: Local      
   type: LoadBalancer
